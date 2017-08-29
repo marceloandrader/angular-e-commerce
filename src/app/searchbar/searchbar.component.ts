@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
     <div class="searchbar input-group">
       <input type="text" class="form-control" placeholder="Search for anything...">
       <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button">Search</button>
+        <button class="btn btn-primary" type="button">Search</button>
       </span>
     </div>
   `,
