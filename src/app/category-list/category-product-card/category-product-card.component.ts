@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
       <img class="card-img-top" src="http://lorempixel.com/80/80" alt="Card image cap">
       <div class="card-block">
         <h4 class="card-title">Product 1</h4>
-        <a href="#" class="btn btn-link">View</a>
+        <a uiSref="product" class="btn btn-link">View more</a>
       </div>
     </div>
   `,

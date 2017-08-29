@@ -22,6 +22,8 @@ import { CategoryListComponent } from './category-list/category-list.component';
 import { CategoryProductCardComponent } from './category-list/category-product-card/category-product-card.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { ProductCardComponent } from './search-results/product-card/product-card.component';
+import { ProductComponent } from './product/product.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { ProductCardComponent } from './search-results/product-card/product-card
     CategoryListComponent,
     CategoryProductCardComponent,
     SearchResultsComponent,
-    ProductCardComponent
+    ProductCardComponent,
+    ProductComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
