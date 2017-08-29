@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   template: `
     <div class="container-fluid text-center pb-5">
       <div class="row justify-content-center">
-        <h3>Keep Clone App v0.1alpha</h3>
+        <h3>Angular Academy E-commerce App v0.1alpha</h3>
       </div>
     </div>
   `
