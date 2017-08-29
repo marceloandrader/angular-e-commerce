@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
     <div class="category card">
       <div class="card-header">
         Category Name
-        <a href="#" class="card-link float-right">View More</a>
+        <a class="card-link float-right" uiSref="search">View More</a>
       </div>
       <div class="card-block">
         <div class="card-deck">

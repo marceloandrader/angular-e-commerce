@@ -2,6 +2,7 @@ import { Ng2StateDeclaration, UIRouter } from '@uirouter/angular';
 import {AboutComponent} from './about/about';
 import { Injector } from '@angular/core';
 import {HomeComponent} from './home/home.component';
+import {SearchResultsComponent} from "./search-results/search-results.component";
 
 /** UIRouter Config  */
 export function uiRouterConfigFn(router: UIRouter, injector: Injector) {
@@ -11,6 +12,7 @@ export function uiRouterConfigFn(router: UIRouter, injector: Injector) {
 export let MAIN_STATES: Ng2StateDeclaration[] = [
   { name: 'about', url: '/about',  component: AboutComponent },
   { name: 'home', url: '/home', component: HomeComponent},
+  { name: 'search', url: '/search', component: SearchResultsComponent},
   { name: 'cards.**',
     url: '/cards',
     loadChildren: './cards/cards.module#CardsModule'
