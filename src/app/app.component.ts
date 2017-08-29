@@ -11,6 +11,7 @@ import * as data from './actions/data';
     <app-searchbar></app-searchbar>
     <toaster-container></toaster-container>
     <ui-view></ui-view>
+    <app-footer></app-footer>
   `,
   styles: [],
 })

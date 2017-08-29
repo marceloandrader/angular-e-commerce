@@ -3,9 +3,8 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-home',
   template: `
-    <p>
-      home Works!
-    </p>
+    <app-category-list></app-category-list>
+    <app-category-list></app-category-list>
   `,
   styles: []
 })

@@ -17,6 +17,9 @@ import {AboutComponent} from './about/about';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SearchbarComponent } from './searchbar/searchbar.component';
 import { HomeComponent } from './home/home.component';
+import { FooterComponent } from './footer/footer.component';
+import { CategoryListComponent } from './category-list/category-list.component';
+import { CategoryProductCardComponent } from './category-list/category-product-card/category-product-card.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { HomeComponent } from './home/home.component';
     AboutComponent,
     ToolbarComponent,
     SearchbarComponent,
-    HomeComponent
+    HomeComponent,
+    FooterComponent,
+    CategoryListComponent,
+    CategoryProductCardComponent
   ],
   imports: [
     BrowserModule,
