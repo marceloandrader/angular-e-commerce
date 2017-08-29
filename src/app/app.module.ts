@@ -24,6 +24,8 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { ProductCardComponent } from './search-results/product-card/product-card.component';
 import { ProductComponent } from './product/product.component';
 import { CartComponent } from './cart/cart.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { CartComponent } from './cart/cart.component';
     SearchResultsComponent,
     ProductCardComponent,
     ProductComponent,
-    CartComponent
+    CartComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
