@@ -28,6 +28,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AddressComponent } from './user-profile/address/address.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AddressComponent } from './user-profile/address/address.component';
     LoginComponent,
     SignupComponent,
     UserProfileComponent,
-    AddressComponent
+    AddressComponent,
+    MyOrdersComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,5 @@
 {
-  "name": "angular academy e-commerce marcelo andrade",
+  "name": "ecommerce marcelo andrade",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -26,6 +26,7 @@
     "@ngrx/store": "^4.0.3",
     "@types/lodash": "^4.14.71",
     "@uirouter/angular": "^1.0.0-beta.7",
+    "angular2-recaptcha": "^0.6.0",
     "angular2-toaster": "^4.0.1",
     "core-js": "^2.4.1",
     "ngrx": "^2.0.1",

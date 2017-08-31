@@ -8,6 +8,7 @@ import {CartComponent} from "./cart/cart.component";
 import {LoginComponent} from "./login/login.component";
 import {SignupComponent} from "./signup/signup.component";
 import {UserProfileComponent} from "./user-profile/user-profile.component";
+import {MyOrdersComponent} from "./my-orders/my-orders.component";
 
 /** UIRouter Config  */
 export function uiRouterConfigFn(router: UIRouter, injector: Injector) {
@@ -18,6 +19,7 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
   { name: 'login', url: '/login',  component: LoginComponent },
   { name: 'signup', url: '/signup',  component: SignupComponent},
   { name: 'user-profile', url: '/user-profile',  component: UserProfileComponent},
+  { name: 'my-orders', url: '/my-orders',  component: MyOrdersComponent},
   { name: 'about', url: '/about',  component: AboutComponent },
   { name: 'home', url: '/home', component: HomeComponent},
   { name: 'search', url: '/search', component: SearchResultsComponent},

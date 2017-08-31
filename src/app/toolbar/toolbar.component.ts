@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 
       <a class="nav-link float-right" uiSref="login">Login</a>
       <a class="nav-link float-right" uiSref="user-profile">Profile</a>
+      <a class="nav-link float-right" uiSref="my-orders">My Orders</a>
       <a class="nav-link float-right" uiSref="cart">Cart</a>
     </nav>
   `,
