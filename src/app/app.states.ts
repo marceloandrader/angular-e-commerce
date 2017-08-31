@@ -9,10 +9,17 @@ import {LoginComponent} from "./login/login.component";
 import {SignupComponent} from "./signup/signup.component";
 import {UserProfileComponent} from "./user-profile/user-profile.component";
 import {MyOrdersComponent} from "./my-orders/my-orders.component";
+import {DataService} from "./services/data.service";
 
 /** UIRouter Config  */
 export function uiRouterConfigFn(router: UIRouter, injector: Injector) {
   router.urlService.rules.otherwise({ state: 'home' });
+}
+
+export function loadProducts(transition) {
+  let dataSvc = transition.injector().get(DataService);
+
+  dataSvc.dispatchLoadProducts();
 }
 
 export let MAIN_STATES: Ng2StateDeclaration[] = [
@@ -22,7 +29,7 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
   { name: 'my-orders', url: '/my-orders',  component: MyOrdersComponent},
   { name: 'about', url: '/about',  component: AboutComponent },
   { name: 'home', url: '/home', component: HomeComponent},
-  { name: 'search', url: '/search', component: SearchResultsComponent},
+  { name: 'search', url: '/search', component: SearchResultsComponent, onEnter: loadProducts},
   { name: 'product', url: '/product', component: ProductComponent},
   { name: 'cart', url: '/cart', component: CartComponent},
   { name: 'cards.**',

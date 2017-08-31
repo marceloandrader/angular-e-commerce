@@ -9,6 +9,8 @@ export function reducer(state = dataModel.defaults, action: data.Actions): dataM
   switch (action.type) {
     case data.ActionTypes.LOAD_SUCCESS:
       return merge({}, state, {cards: action.payload});
+    case data.ActionTypes.LOAD_PRODUCTS_SUCCESS:
+      return merge({}, state, {products: action.payload});
     case data.ActionTypes.SERVER_ADD_SUCCESS:
       return merge({}, state, {cards: [ ...state.cards, action.payload ]});
     case data.ActionTypes.UPDATE_SUCCESS:
@@ -24,3 +26,4 @@ export function reducer(state = dataModel.defaults, action: data.Actions): dataM
 }
 
 export const getCards = (state: dataModel.Data) => state.cards;
+export const getProducts = (state: dataModel.Data) => state.products;

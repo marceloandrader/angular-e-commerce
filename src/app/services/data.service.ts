@@ -33,4 +33,12 @@ export class DataService {
   refreshToken() {
     return this.http.get(`/api/v1/xsrf.json`);
   }
+
+  dispatchLoadProducts() {
+    this.store.dispatch(new data.LoadProductsAction({}));
+  }
+
+  loadProducts() {
+    return this.http.get('http://localhost:3000/products');
+  }
 }

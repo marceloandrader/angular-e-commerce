@@ -17,4 +17,4 @@ api:
     volumes:
         - ./postgrest/config.conf:/etc/postgrest.conf
     ports:
-        - "82:3000"
+        - "3000:3000"
