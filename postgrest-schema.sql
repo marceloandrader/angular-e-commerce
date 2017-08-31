@@ -1,6 +1,7 @@
 CREATE TABLE categories (
   id serial primary key,
-  name varchar(50) not null
+  name varchar(50) not null,
+  unique(name)
 );
 
 CREATE TABLE products (
@@ -8,13 +9,9 @@ CREATE TABLE products (
   name varchar(50) not null,
   description text,
   price numeric(10,2) not null,
-  category_id integer references categories (id)
-);
-
-CREATE TABLE product_pictures (
-  id serial primary key,
-  url text not null,
-  product_id integer references products (id)
+  category_id integer,
+  CONSTRAINT category_id FOREIGN KEY (category_id)
+    references categories (id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
 CREATE TABLE orders (
@@ -25,15 +22,21 @@ CREATE TABLE orders (
 
 CREATE TABLE order_details(
   id serial primary key,
-  order_id integer references orders (id),
-  product_id integer references products (id),
+  order_id integer,
+  product_id integer,
   qty integer not null,
   price numeric(10,2) not null,
-  unique (order_id, product_id)
+  unique (order_id, product_id),
+  CONSTRAINT order_id FOREIGN KEY (order_id)
+    references orders (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+  CONSTRAINT product_id FOREIGN KEY (product_id)
+    references products (id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
 -- seed some data
-INSERT INTO categories(name) values ('Technology'), ('Sports'), ('Kitchen');
+INSERT INTO categories(name) values ('Technology'),
+('Sports'),
+('Kitchen');
 
 INSERT INTO products(name, description, price, category_id) values
 ('Nexus 4', 'Smartphone', 100, 1),

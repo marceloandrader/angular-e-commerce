@@ -19,4 +19,4 @@ REVOKE ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA public FROM api_admin;
 REVOKE ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public FROM api_admin;
 
 -- This grants can be executed multiple times
-grant SELECT on table public.categories, public.products, public.product_pictures to anon;
+grant SELECT on table public.categories, public.products to anon;
