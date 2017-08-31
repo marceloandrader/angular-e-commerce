@@ -1,8 +1,20 @@
-version: '2'
-
-services:
-  angular:
-    build: .
-    image: bopm/keep-clone
+db:
+    image: postgres:9.4
+    environment:
+        - POSTGRES_PASSWORD=Asdf12345
+        - POSTGRES_USER=dbadmin
+        - POSTGRES_DB=postgres
     ports:
-      - '8080:80'
+      - "5432:5432"
+    volumes:
+      - ./:/var/www
+
+api:
+    image: begriffs/postgrest:nightly
+    command: postgrest /etc/postgrest.conf
+    links:
+        - db:pg
+    volumes:
+        - ./postgrest/config.conf:/etc/postgrest.conf
+    ports:
+        - "82:3000"
