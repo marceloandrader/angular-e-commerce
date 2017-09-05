@@ -6,7 +6,7 @@ import * as fromRoot from '../reducers';
 @Component({
   selector: 'app-cart',
   template: `
-    <app-product-card *ngFor="let product of cart?.products" [product]="product"></app-product-card>
+    <app-product-in-cart *ngFor="let product of cart?.products" [product]="product"></app-product-in-cart>
     
     <div class="text-center">
       <button class="btn btn-lg btn-success">Checkout</button>

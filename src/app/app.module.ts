@@ -29,6 +29,7 @@ import { SignupComponent } from './signup/signup.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AddressComponent } from './user-profile/address/address.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
+import {ProductInCartComponent} from "./cart/product-in-cart/product-in-cart.component";
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { MyOrdersComponent } from './my-orders/my-orders.component';
     SignupComponent,
     UserProfileComponent,
     AddressComponent,
-    MyOrdersComponent
+    MyOrdersComponent,
+    ProductInCartComponent
   ],
   imports: [
     BrowserModule,

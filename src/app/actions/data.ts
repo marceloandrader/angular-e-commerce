@@ -24,6 +24,9 @@ export const ActionTypes = {
   LOAD_CATEGORIES_WITH_PRODUCTS: type('[Data] Load categories'),
   LOAD_CATEGORIES_WITH_PRODUCTS_SUCCESS: type('[Data] Load categories Success'),
   ADD_TO_CART: type('[Data] Add to Cart'),
+  REMOVE_FROM_CART: type('[Data] Remove from Cart'),
+  INCREASE_CART: type('[Data] Increase qty on product from cart'),
+  DECREASE_CART: type('[Data] Decrease qty on product from cart'),
 };
 
 export class LoadAction implements Action {
@@ -141,6 +144,24 @@ export class AddToCartAction implements Action {
   constructor(public payload: product) { }
 }
 
+export class RemoveFromCartAction implements Action {
+  readonly type = ActionTypes.REMOVE_FROM_CART;
+
+  constructor(public payload: product) { }
+}
+
+export class IncreaseCartAction implements Action {
+  readonly type = ActionTypes.INCREASE_CART;
+
+  constructor(public payload: product) { }
+}
+
+export class DecreaseCartAction implements Action {
+  readonly type = ActionTypes.DECREASE_CART;
+
+  constructor(public payload: product) { }
+}
+
 export type Actions
   = LoadAction
   | LoadSuccessAction
@@ -161,4 +182,7 @@ export type Actions
   | LoadProductSuccessAction
   | LoadCategoriesWithProductsAction
   | LoadCategoriesWithProductsSuccessAction
-  | AddToCartAction;
+  | AddToCartAction
+  | RemoveFromCartAction
+  | IncreaseCartAction
+  | DecreaseCartAction;

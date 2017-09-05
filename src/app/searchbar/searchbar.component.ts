@@ -6,9 +6,9 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
   selector: 'app-searchbar',
   template: `    
     <div class="searchbar input-group">
-      <input type="text" class="form-control" placeholder="Search for anything..." [formControl]="searchForm.controls['text']">
+      <input type="text" name="text" class="form-control" placeholder="Search for anything..." [formControl]="searchForm.controls['text']">
       <span class="input-group-btn">
-        <button class="btn btn-primary" type="button" (click)="search()">Search</button>
+        <button class="btn btn-primary" type="button" (click)="handleClickSearch()">Search</button>
       </span>
     </div>
   `,
@@ -36,7 +36,13 @@ export class SearchbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  handleClickSearch() {
+    if (this.searchForm.valid) {
+      this.search(this.searchForm.controls['text'].value);
+    }
+  }
+
   search (query) {
-    this.state.go('search', {query});
+    this.state.go('search', {query, category:null});
   }
 }

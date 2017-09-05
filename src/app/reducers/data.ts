@@ -10,7 +10,8 @@ export function reducer(state = dataModel.defaults, action: data.Actions): dataM
     case data.ActionTypes.LOAD_SUCCESS:
       return merge({}, state, {cards: action.payload});
     case data.ActionTypes.LOAD_PRODUCTS_SUCCESS:
-      return merge({}, state, {products: action.payload});
+      delete stateCopy.products;
+      return merge({}, stateCopy, {products: action.payload});
     case data.ActionTypes.LOAD_PRODUCT_SUCCESS:
       return merge({}, state, {currentProduct: action.payload[0]});
     case data.ActionTypes.LOAD_CATEGORIES_WITH_PRODUCTS_SUCCESS:
@@ -28,7 +29,23 @@ export function reducer(state = dataModel.defaults, action: data.Actions): dataM
       if (!stateCopy.cart) {
         stateCopy.cart = {products: []};
       }
-      stateCopy.cart.products.push(action.payload)
+      stateCopy.cart.products.push(merge({quantity: 1}, action.payload))
+      return merge({}, stateCopy);
+    case data.ActionTypes.REMOVE_FROM_CART:
+      stateCopy.cart.products = without(stateCopy.cart.products, action.payload)
+      return merge({}, stateCopy);
+    case data.ActionTypes.INCREASE_CART:
+      stateCopy.cart.products = without(state.cart.products, find(state.cart.products, (p) => p.id === action.payload.id));
+      const prod = clone(action.payload);
+      prod.quantity += 1;
+      stateCopy.cart.products.push(prod);
+      return merge({}, stateCopy);
+    case data.ActionTypes.DECREASE_CART:
+      if (action.payload.quantity === 1) { return state; }
+      stateCopy.cart.products = without(state.cart.products, find(state.cart.products, (p) => p.id === action.payload.id));
+      const product = clone(action.payload);
+      product.quantity -= 1;
+      stateCopy.cart.products.push(product);
       return merge({}, stateCopy);
     default:
       return state;
