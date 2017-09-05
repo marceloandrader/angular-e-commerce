@@ -25,7 +25,7 @@ import {ToasterService} from "angular2-toaster";
           <button (click)="decrease(product)">-</button>
         </p>
         
-        <a href="javascript:void(false);" (click)="addToCart(product)" class="float-right btn btn-primary">Remove from Cart</a>
+        <a href="javascript:void(false);" (click)="addToCart(product)" class="float-right btn btn-danger">Remove from Cart</a>
       </div>
     </div>
   `,

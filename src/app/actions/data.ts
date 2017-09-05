@@ -27,6 +27,7 @@ export const ActionTypes = {
   REMOVE_FROM_CART: type('[Data] Remove from Cart'),
   INCREASE_CART: type('[Data] Increase qty on product from cart'),
   DECREASE_CART: type('[Data] Decrease qty on product from cart'),
+  CHECKOUT_CART: type('[Data] Proceed to checkout the cart'),
 };
 
 export class LoadAction implements Action {
@@ -162,6 +163,13 @@ export class DecreaseCartAction implements Action {
   constructor(public payload: product) { }
 }
 
+
+export class CheckoutCartAction implements Action {
+  readonly type = ActionTypes.CHECKOUT_CART;
+
+  constructor(public payload?: any) { }
+}
+
 export type Actions
   = LoadAction
   | LoadSuccessAction
@@ -185,4 +193,5 @@ export type Actions
   | AddToCartAction
   | RemoveFromCartAction
   | IncreaseCartAction
-  | DecreaseCartAction;
+  | DecreaseCartAction
+  | CheckoutCartAction;
