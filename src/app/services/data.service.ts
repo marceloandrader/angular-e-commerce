@@ -41,4 +41,12 @@ export class DataService {
   loadProducts() {
     return this.http.get('http://localhost:3000/products');
   }
+
+  dispatchLoadCategoriesWithProducts() {
+    this.store.dispatch(new data.LoadCategoriesWithProductsAction({}));
+  }
+
+  loadCategoriesWithProducts() {
+    return this.http.get('http://localhost:3000/categories?select=*,products(*)');
+  }
 }

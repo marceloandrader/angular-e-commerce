@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {product} from "../../models/product";
 
 @Component({
   selector: 'app-category-product-card',
   template: `
     <div class="category-product-card card text-center" style="width: 20rem;">
-      <img class="card-img-top" src="http://lorempixel.com/80/80" alt="Card image cap">
+      <img class="card-img-top" src="http://lorempixel.com/80/80" alt="{{product.name}}">
       <div class="card-block">
-        <h4 class="card-title">Product 1</h4>
+        <h4 class="card-title">{{product.name}}</h4>
         <a uiSref="product" class="btn btn-link">View more</a>
       </div>
     </div>
@@ -16,6 +17,8 @@ import { Component, OnInit } from '@angular/core';
   ]
 })
 export class CategoryProductCardComponent implements OnInit {
+
+  @Input() product: product;
 
   constructor() { }
 

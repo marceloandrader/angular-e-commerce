@@ -18,6 +18,8 @@ export const ActionTypes = {
   REFRESH_TOKEN_FAIL: type('[Data] Refresh Token Fail'),
   LOAD_PRODUCTS: type('[Data] Load products'),
   LOAD_PRODUCTS_SUCCESS: type('[Data] Load products Success'),
+  LOAD_CATEGORIES_WITH_PRODUCTS: type('[Data] Load categories'),
+  LOAD_CATEGORIES_WITH_PRODUCTS_SUCCESS: type('[Data] Load categories Success'),
 };
 
 export class LoadAction implements Action {
@@ -107,6 +109,16 @@ export class LoadProductsSuccessAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class LoadCategoriesWithProductsAction implements Action {
+  readonly type = ActionTypes.LOAD_CATEGORIES_WITH_PRODUCTS;
+
+  constructor(public payload: any) { }
+}
+export class LoadCategoriesWithProductsSuccessAction implements Action {
+  readonly type = ActionTypes.LOAD_CATEGORIES_WITH_PRODUCTS_SUCCESS;
+
+  constructor(public payload: any) { }
+}
 
 export type Actions
   = LoadAction
@@ -123,4 +135,6 @@ export type Actions
   | RefreshTokenSuccessAction
   | RefreshTokenFailAction
   | LoadProductsAction
-  | LoadProductsSuccessAction;
+  | LoadProductsSuccessAction
+  | LoadCategoriesWithProductsAction
+  | LoadCategoriesWithProductsSuccessAction;

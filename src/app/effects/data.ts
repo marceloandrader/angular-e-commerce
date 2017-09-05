@@ -23,6 +23,16 @@ export class DataEffects {
       .catch(err => of(new data.ServerFailAction(err)))
     );
 
+
+  @Effect()
+  loadCategoriesWithProducts$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOAD_CATEGORIES_WITH_PRODUCTS)
+    .debounceTime(300)
+    .map((action: data.LoadCategoriesWithProductsAction) => action.payload)
+    .switchMap(payload => this.dataService.loadCategoriesWithProducts()
+      .map(res => new data.LoadCategoriesWithProductsSuccessAction(res))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
+
   @Effect()
   load$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOAD)
     .debounceTime(300)

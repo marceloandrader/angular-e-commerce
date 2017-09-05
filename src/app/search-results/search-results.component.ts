@@ -3,7 +3,6 @@ import * as fromRoot from '../reducers';
 import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/operator/map';
 import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-search-results',
