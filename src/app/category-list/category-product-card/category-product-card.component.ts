@@ -5,10 +5,10 @@ import {product} from "../../models/product";
   selector: 'app-category-product-card',
   template: `
     <div class="category-product-card card text-center" style="width: 20rem;">
-      <img class="card-img-top" src="http://lorempixel.com/80/80" alt="{{product.name}}">
+      <img class="card-img-top" src="http://lorempixel.com/318/80/food?random={{product.id}}" alt="{{product.name}}">
       <div class="card-block">
         <h4 class="card-title">{{product.name}}</h4>
-        <a uiSref="product" class="btn btn-link">View more</a>
+        <a uiSref="product" [uiParams]="{ productId: product.id }" class="btn btn-link">View more</a>
       </div>
     </div>
   `,

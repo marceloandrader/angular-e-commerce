@@ -6,10 +6,11 @@ export interface Data {
   cards: Array<card>;
   products: Array<product>;
   categories: Array<category>;
+  currentProduct?: product;
 }
 
 export const defaults: Data = {
   cards: [],
   products: [],
-  categories: []
+  categories: [],
 };

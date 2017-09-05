@@ -11,7 +11,7 @@ import {product} from "../../models/product";
         <h6 class="card-subtitle mb-2 text-muted">Price: {{product.price}}USD</h6>
         <p class="card-text">{{product.description}}</p>
         <a uiSref="cart" class="float-right btn btn-primary">Add to Cart</a>
-        <a uiSref="product" class="card-link">View more</a>
+        <a uiSref="product" [uiParams]="{ productId: product.id }" class="card-link">View more</a>
       </div>
     </div>
   `,

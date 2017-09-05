@@ -17,13 +17,19 @@ export function uiRouterConfigFn(router: UIRouter, injector: Injector) {
 }
 
 export function loadProducts(transition) {
-  let dataSvc = transition.injector().get(DataService);
+  const dataSvc = transition.injector().get(DataService);
 
   dataSvc.dispatchLoadProducts();
 }
 
+export function loadProduct(transition) {
+  const dataSvc = transition.injector().get(DataService);
+
+  dataSvc.dispatchLoadProduct(transition.params().productId);
+}
+
 export function loadCategoriesWithProducts(transition) {
-  let dataSvc = transition.injector().get(DataService);
+  const dataSvc = transition.injector().get(DataService);
 
   dataSvc.dispatchLoadCategoriesWithProducts();
 }
@@ -36,7 +42,7 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
   { name: 'about', url: '/about',  component: AboutComponent },
   { name: 'home', url: '/home', component: HomeComponent, onEnter: loadCategoriesWithProducts},
   { name: 'search', url: '/search', component: SearchResultsComponent, onEnter: loadProducts},
-  { name: 'product', url: '/product', component: ProductComponent},
+  { name: 'product', url: '/product/:productId', component: ProductComponent, onEnter: loadProduct},
   { name: 'cart', url: '/cart', component: CartComponent},
   { name: 'cards.**',
     url: '/cards',

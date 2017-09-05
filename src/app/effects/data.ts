@@ -23,6 +23,15 @@ export class DataEffects {
       .catch(err => of(new data.ServerFailAction(err)))
     );
 
+  @Effect()
+  loadProduct$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOAD_PRODUCT)
+    .debounceTime(300)
+    .map((action: data.LoadProductAction) => action.payload)
+    .switchMap(payload => this.dataService.loadProduct(payload.productId)
+          .map(res => new data.LoadProductSuccessAction(res))
+          .catch(err => of(new data.ServerFailAction(err)))
+    );
+
 
   @Effect()
   loadCategoriesWithProducts$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOAD_CATEGORIES_WITH_PRODUCTS)
@@ -57,9 +66,9 @@ export class DataEffects {
     .map((action: data.UpdateAction) => action.payload)
     .switchMap(payload => {
       this.toasterService.pop('error', 'Failure',
-        isObject(payload.error) ? keys(
-          mapKeys(payload.error, (value: Array<string>, key: string) => `${key}: ${value.join(';')}`)).join(';') :
-          payload.error);
+        isObject(payload) ? keys(
+          mapKeys(payload, (value: string, key: string) => `${key}: ${value}`)).join(';') :
+          payload);
       return of(null);
     });
 
