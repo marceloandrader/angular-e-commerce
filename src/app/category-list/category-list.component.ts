@@ -11,7 +11,7 @@ import {category} from "../models/category";
       </div>
       <div class="card-block">
         <div class="card-deck">
-        <app-category-product-card *ngFor="let product of category.products"
+        <app-category-product-card *ngFor="let product of category.products | slice:0:3"
                                    [product]="product"></app-category-product-card>
         </div>
       </div>

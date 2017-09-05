@@ -7,7 +7,7 @@ import {ProductComponent} from "./product/product.component";
 import {CartComponent} from "./cart/cart.component";
 import {LoginComponent} from "./login/login.component";
 import {SignupComponent} from "./signup/signup.component";
-import {UserProfileCompoProductsnent} from "./user-profile/user-profile.component";
+import {UserProfileComponent} from "./user-profile/user-profile.component";
 import {MyOrdersComponent} from "./my-orders/my-orders.component";
 import {DataService} from "./services/data.service";
 
