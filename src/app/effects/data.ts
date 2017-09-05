@@ -18,7 +18,7 @@ export class DataEffects {
   loadProducts$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOAD_PRODUCTS)
     .debounceTime(300)
     .map((action: data.LoadProductsAction) => action.payload)
-    .switchMap(payload => this.dataService.loadProducts()
+    .switchMap(payload => this.dataService.loadProducts(payload)
       .map(res => new data.LoadProductsSuccessAction(res))
       .catch(err => of(new data.ServerFailAction(err)))
     );

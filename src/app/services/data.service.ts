@@ -34,12 +34,21 @@ export class DataService {
     return this.http.get(`/api/v1/xsrf.json`);
   }
 
-  dispatchLoadProducts() {
-    this.store.dispatch(new data.LoadProductsAction({}));
+  dispatchLoadProducts(params) {
+    this.store.dispatch(new data.LoadProductsAction(params));
   }
 
-  loadProducts() {
-    return this.http.get('http://localhost:3000/products');
+  loadProducts(params) {
+    let queryString = '?';
+    const queries = []
+    if (params.category) {
+      queries.push('category_id=eq.' + params.category);
+    }
+    if (params.query) {
+      queries.push('name=@@.' + params.query);
+    }
+    queryString += queries.join('&')
+    return this.http.get('http://localhost:3000/products' + queryString);
   }
 
   dispatchLoadProduct(productId) {

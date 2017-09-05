@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener, OnInit} from '@angular/core';
+import {StateService} from "@uirouter/angular/lib";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-searchbar',
   template: `    
     <div class="searchbar input-group">
-      <input type="text" class="form-control" placeholder="Search for anything...">
+      <input type="text" class="form-control" placeholder="Search for anything..." [formControl]="searchForm.controls['text']">
       <span class="input-group-btn">
-        <button class="btn btn-primary" type="button">Search</button>
+        <button class="btn btn-primary" type="button" (click)="search()">Search</button>
       </span>
     </div>
   `,
@@ -16,9 +18,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchbarComponent implements OnInit {
 
-  constructor() { }
+  searchForm: FormGroup;
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.charCode === 13 && this.searchForm.valid) {
+      this.search(this.searchForm.controls['text'].value);
+    }
+  }
+
+  constructor(private state: StateService, fb: FormBuilder) {
+    this.searchForm = fb.group({
+      'text': [null, Validators.compose([Validators.minLength(3)])]
+    });
+  }
 
   ngOnInit() {
   }
 
+  search (query) {
+    this.state.go('search', {query});
+  }
 }

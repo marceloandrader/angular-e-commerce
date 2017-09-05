@@ -9,9 +9,6 @@ import {Store} from '@ngrx/store';
   template: `
     <app-product-card *ngFor="let product of getProducts() | async"
                       [product]="product"></app-product-card>
-    <p class="text-center">
-    <a href="#">Next Page</a>
-    </p>
   `,
   styles: []
 })

@@ -19,7 +19,10 @@ export function uiRouterConfigFn(router: UIRouter, injector: Injector) {
 export function loadProducts(transition) {
   const dataSvc = transition.injector().get(DataService);
 
-  dataSvc.dispatchLoadProducts();
+  dataSvc.dispatchLoadProducts({
+    query: transition.params().query,
+    category: transition.params().category
+  });
 }
 
 export function loadProduct(transition) {
@@ -41,7 +44,7 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
   { name: 'my-orders', url: '/my-orders',  component: MyOrdersComponent},
   { name: 'about', url: '/about',  component: AboutComponent },
   { name: 'home', url: '/home', component: HomeComponent, onEnter: loadCategoriesWithProducts},
-  { name: 'search', url: '/search', component: SearchResultsComponent, onEnter: loadProducts},
+  { name: 'search', url: '/search?query&category', component: SearchResultsComponent, onEnter: loadProducts},
   { name: 'product', url: '/product/:productId', component: ProductComponent, onEnter: loadProduct},
   { name: 'cart', url: '/cart', component: CartComponent},
   { name: 'cards.**',
