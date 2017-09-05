@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import * as dataModel from '../models/data';
 import * as data from '../actions/data';
 import { merge, without, clone, find } from 'lodash';
-
+import { cart } from '../models/cart';
 
 export function reducer(state = dataModel.defaults, action: data.Actions): dataModel.Data {
   let stateCopy = clone(state);
@@ -24,6 +24,12 @@ export function reducer(state = dataModel.defaults, action: data.Actions): dataM
     case data.ActionTypes.REMOVE_SUCCESS:
       stateCopy.cards = without(state.cards, action.payload);
       return merge({}, stateCopy);
+    case data.ActionTypes.ADD_TO_CART:
+      if (!stateCopy.cart) {
+        stateCopy.cart = {products: []};
+      }
+      stateCopy.cart.products.push(action.payload)
+      return merge({}, stateCopy);
     default:
       return state;
   }
@@ -33,3 +39,4 @@ export const getCards = (state: dataModel.Data) => state.cards;
 export const getProducts = (state: dataModel.Data) => state.products;
 export const getCurrentProduct = (state: dataModel.Data) => state.currentProduct;
 export const getCategoriesWithProducts  = (state: dataModel.Data) => state.categories;
+export const getCart  = (state: dataModel.Data) => state.cart;

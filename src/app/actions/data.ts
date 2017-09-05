@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { type } from '../util';
 import {card} from '../models/card';
+import {product} from "../models/product";
 
 export const ActionTypes = {
   LOAD: type('[Data] Load Cards'),
@@ -22,6 +23,7 @@ export const ActionTypes = {
   LOAD_PRODUCT_SUCCESS: type('[Data] Load product Success'),
   LOAD_CATEGORIES_WITH_PRODUCTS: type('[Data] Load categories'),
   LOAD_CATEGORIES_WITH_PRODUCTS_SUCCESS: type('[Data] Load categories Success'),
+  ADD_TO_CART: type('[Data] Add to Cart'),
 };
 
 export class LoadAction implements Action {
@@ -133,6 +135,12 @@ export class LoadCategoriesWithProductsSuccessAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class AddToCartAction implements Action {
+  readonly type = ActionTypes.ADD_TO_CART;
+
+  constructor(public payload: product) { }
+}
+
 export type Actions
   = LoadAction
   | LoadSuccessAction
@@ -152,4 +160,5 @@ export type Actions
   | LoadProductAction
   | LoadProductSuccessAction
   | LoadCategoriesWithProductsAction
-  | LoadCategoriesWithProductsSuccessAction;
+  | LoadCategoriesWithProductsSuccessAction
+  | AddToCartAction;

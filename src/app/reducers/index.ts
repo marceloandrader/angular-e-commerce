@@ -49,6 +49,8 @@ export const getCurrentProduct = createSelector(getDataState, fromData.getCurren
 
 export const getCategoriesWithProducts = createSelector(getDataState, fromData.getCategoriesWithProducts);
 
+export const getCart = createSelector(getDataState, fromData.getCart);
+
 /* Data */
 
 export const getUiState = (state: State) => state.ui;
