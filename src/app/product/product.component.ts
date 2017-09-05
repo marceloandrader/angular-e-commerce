@@ -21,7 +21,7 @@ import {ToasterService} from "angular2-toaster";
     {{product?.description}}
     <br>
     <strong>Price:</strong>
-    {{product?.price}}
+    {{product?.price | number:'1.2'}}
     <br>
     <a href="javascript:void(false);" class="btn btn-primary" (click)="addToCart(product)">Add to Cart</a>
   `,

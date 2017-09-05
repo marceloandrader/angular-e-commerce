@@ -9,7 +9,7 @@ import * as fromRoot from '../reducers';
     <app-product-in-cart *ngFor="let product of cart?.products" [product]="product"></app-product-in-cart>
     
     <div class="text-center">
-      <button class="btn btn-lg btn-success">Checkout</button>
+      <button class="btn btn-lg btn-success">Checkout Total: {{getCartTotal() | number:'1.2'}}</button>
       or
       <a uiSref="home">continue shopping</a>
     </div>
@@ -34,5 +34,12 @@ export class CartComponent implements OnInit, OnDestroy {
   getCart() {
     return this.store.select(fromRoot.getCart)
       .takeWhile(() => this.alive);
+  }
+
+  getCartTotal() {
+    if (!this.cart) return 0;
+    return this.cart.products.reduce(function(previousValue, currentValue){
+      return previousValue + (currentValue.quantity * currentValue.price);
+    }, 0);
   }
 }
