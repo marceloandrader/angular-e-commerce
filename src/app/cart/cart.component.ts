@@ -4,13 +4,19 @@ import {Store} from "@ngrx/store";
 import * as fromRoot from '../reducers';
 import * as data from '../actions/data';
 import {isUndefined} from "util";
+import { ToasterService } from "angular2-toaster/src/toaster.service";
+import {StateService} from "@uirouter/angular/lib";
 
 @Component({
   selector: 'app-cart',
   template: `
     <app-product-in-cart *ngFor="let product of cart?.products" [product]="product"></app-product-in-cart>
 
-    <div class="text-center">
+    <div class="text-center" *ngIf="getCartTotal() == 0">
+      <a uiSref="home">Please add some products to the cart</a>
+    </div>
+
+    <div class="text-center" *ngIf="getCartTotal() > 0">
       <button class="btn btn-lg btn-success" *ngIf="loggedIn" (click)="checkoutCurrentCart()">Checkout Total: {{getCartTotal() | number:'1.2'}}</button>
       <a class="btn btn-lg btn-warning" uiSref="login" *ngIf="!loggedIn">First login or signup to checkout this cart</a>
       or
@@ -25,7 +31,7 @@ export class CartComponent implements OnInit, OnDestroy {
   private alive = true;
   public loggedIn: boolean;
 
-  constructor(private store: Store<fromRoot.State>) {
+  constructor(private store: Store<fromRoot.State>, private toasterService: ToasterService, private state: StateService) {
     this.store.select(fromRoot.getCurrentUser)
       .subscribe((user) => {
         this.loggedIn = !isUndefined(user);
@@ -53,6 +59,13 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   checkoutCurrentCart() {
-      this.store.dispatch(new data.CheckoutCartAction(this.cart));
+    this.store.dispatch(new data.CheckoutCartAction(this.cart));
+    this.getCart().subscribe((cart) => {
+      if (!cart) {
+        // cart is empty checkout processed correctly
+        this.toasterService.pop('success', 'Checkout correct', 'Successfully created order');
+        this.state.go('my-orders');
+      }
+    })
   }
 }

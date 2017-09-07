@@ -91,6 +91,6 @@ export class DataService {
   }
 
   loadOrders() {
-    return this.http.get('http://localhost:3000/orders?select=*,order_details(*, products(*))&user_id=eq.1');
+    return this.http.get('http://localhost:3000/orders?select=*,order_details(*, products(*))&user_id=eq.1&order=id.desc');
   }
 }

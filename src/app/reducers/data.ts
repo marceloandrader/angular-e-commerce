@@ -58,6 +58,9 @@ export function reducer(state = dataModel.defaults, action: data.Actions): dataM
     case data.ActionTypes.LOGOUT:
       delete stateCopy.currentUser;
       return merge({}, stateCopy);
+    case data.ActionTypes.CHECKOUT_CART_SUCCESS:
+      delete stateCopy.cart;
+      return merge({}, stateCopy);
     case data.ActionTypes.LOAD_ORDERS_SUCCESS:
       delete stateCopy.orders;
       return merge({}, stateCopy, {orders: action.payload});

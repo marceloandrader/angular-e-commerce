@@ -10,7 +10,7 @@ import { order } from "../models/order";
       <div class="card" style="width:100%">
           <div class="card-block">
             <h4 class="card-title">Order Number {{order.id}} <span class="badge-success">{{order.status}}</span> </h4>
-            <p class="card-text">Order date: {{order.created_on}}.</p>
+            <p class="card-text">Order date: {{order.created_on | date:'mediumDate'}}.</p>
             <a href="#" class="btn btn-outline-primary">View details</a>
           </div>
       </div>
