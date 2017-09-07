@@ -58,6 +58,9 @@ export function reducer(state = dataModel.defaults, action: data.Actions): dataM
     case data.ActionTypes.LOGOUT:
       delete stateCopy.currentUser;
       return merge({}, stateCopy);
+    case data.ActionTypes.LOAD_ORDERS_SUCCESS:
+      delete stateCopy.orders;
+      return merge({}, stateCopy, {orders: action.payload});
     default:
       return state;
   }
@@ -69,3 +72,4 @@ export const getProducts = (state: dataModel.Data) => state.products;
 export const getCurrentProduct = (state: dataModel.Data) => state.currentProduct;
 export const getCategoriesWithProducts  = (state: dataModel.Data) => state.categories;
 export const getCart  = (state: dataModel.Data) => state.cart;
+export const getOrders = (state: dataModel.Data) => state.orders;

@@ -85,4 +85,12 @@ export class DataService {
   checkout(cart) {
     return this.http.post('http://localhost:3000/rpc/checkout', cart);
   }
+
+  dispatchLoadOrders() {
+    this.store.dispatch(new data.LoadOrdersAction({}));
+  }
+
+  loadOrders() {
+    return this.http.get('http://localhost:3000/orders?select=*,order_details(*, products(*))&user_id=eq.1');
+  }
 }

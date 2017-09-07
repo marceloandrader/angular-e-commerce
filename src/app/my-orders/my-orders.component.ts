@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from "@ngrx/store";
+import * as fromRoot from '../reducers'
+import { order } from "../models/order";
 
 @Component({
   selector: 'app-my-orders',
@@ -7,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
       <div class="card" style="width:100%">
           <div class="card-block">
             <h4 class="card-title">Order Number {{order.id}} <span class="badge-success">{{order.status}}</span> </h4>
-            <p class="card-text">Order date: {{order.date}}.</p>
+            <p class="card-text">Order date: {{order.created_on}}.</p>
             <a href="#" class="btn btn-outline-primary">View details</a>
           </div>
       </div>
@@ -17,13 +20,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyOrdersComponent implements OnInit {
 
-  private orders:Array<any> = [
-    {id: 1, status: 'pending', date:'2017-08-29'},
-    {id: 2, status: 'delivered', date:'2017-08-27'},
-    {id: 3, status: 'rejected', date:'2017-08-28'},
-  ]
+  private orders:Array<order>;
 
-  constructor() { }
+  constructor(private store: Store<fromRoot.State>) {
+    this.store.select(fromRoot.getOrders)
+      .subscribe((orders) => this.orders = orders)
+  }
 
   ngOnInit() {
   }

@@ -91,6 +91,15 @@ export class DataEffects {
 
 
   @Effect()
+  loadOrders$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOAD_ORDERS)
+    .debounceTime(300)
+    .map((action: data.LoadOrdersAction) => action.payload)
+    .switchMap(payload => this.dataService.loadOrders()
+          .map(res => new data.LoadOrdersSuccessAction(res))
+          .catch(err => of(new data.ServerFailAction(err)))
+    );
+
+  @Effect()
   add$: Observable<Action> = this.actions$.ofType(data.ActionTypes.ADD)
     .debounceTime(300)
     .map((action: data.UpdateAction) => action.payload)

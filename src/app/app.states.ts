@@ -37,11 +37,17 @@ export function loadCategoriesWithProducts(transition) {
   dataSvc.dispatchLoadCategoriesWithProducts();
 }
 
+export function loadOrders(transition) {
+  const dataSvc = transition.injector().get(DataService);
+
+  dataSvc.dispatchLoadOrders();
+}
+
 export let MAIN_STATES: Ng2StateDeclaration[] = [
   { name: 'login', url: '/login',  component: LoginComponent },
   { name: 'signup', url: '/signup',  component: SignupComponent},
   { name: 'user-profile', url: '/user-profile',  component: UserProfileComponent},
-  { name: 'my-orders', url: '/my-orders',  component: MyOrdersComponent},
+  { name: 'my-orders', url: '/my-orders',  component: MyOrdersComponent, onEnter: loadOrders},
   { name: 'about', url: '/about',  component: AboutComponent },
   { name: 'home', url: '/home', component: HomeComponent, onEnter: loadCategoriesWithProducts},
   { name: 'search', url: '/search?query&category', component: SearchResultsComponent, onEnter: loadProducts},
