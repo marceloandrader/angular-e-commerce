@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Effect, Actions} from '@ngrx/effects';
-import {Action} from '@ngrx/store';
+import {Action, Store} from '@ngrx/store';
 import * as data from '../actions/data';
+import * as fromRoot from '../reducers';
 import {DataService} from '../services/data.service';
 import {of} from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
@@ -10,6 +11,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/catch';
 import {ToasterService} from 'angular2-toaster';
 import { mapKeys, keys, isObject } from 'lodash';
+import {LoginAction} from "../actions/data";
 
 @Injectable()
 export class DataEffects {
@@ -61,6 +63,24 @@ export class DataEffects {
     );
 
   @Effect()
+  signup$: Observable<Action> = this.actions$.ofType(data.ActionTypes.SIGNUP)
+    .debounceTime(300)
+    .map((action: data.SignupAction) => action.payload)
+    .switchMap(payload => this.dataService.signup(payload)
+      .map(res => new data.SignupSuccessAction(payload))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
+
+  @Effect()
+  signupSuccess$: Observable<Action> = this.actions$.ofType(data.ActionTypes.SIGNUP_SUCCESS)
+    .debounceTime(300)
+    .map((action: data.SignupSuccessAction) => action.payload)
+    .switchMap(payload => this.dataService.login({email: payload.email, pass: payload.pass})
+      .map(res => new data.LoginSuccessAction(payload))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
+
+  @Effect()
   add$: Observable<Action> = this.actions$.ofType(data.ActionTypes.ADD)
     .debounceTime(300)
     .map((action: data.UpdateAction) => action.payload)
@@ -105,6 +125,6 @@ export class DataEffects {
     .switchMap(() => this.dataService.refreshToken().map(() => null));
 
 
-  constructor(private actions$: Actions, private dataService: DataService, private toasterService: ToasterService) {
+  constructor(private actions$: Actions, private dataService: DataService, private toasterService: ToasterService, private store: Store<fromRoot.State>) {
   }
 }

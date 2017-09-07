@@ -31,6 +31,8 @@ export const ActionTypes = {
   LOGIN: type('[Data] Login'),
   LOGIN_SUCCESS: type('[Data] Login succeeded'),
   LOGOUT: type('[Data] Logout'),
+  SIGNUP: type('[Data] Signup'),
+  SIGNUP_SUCCESS: type('[Data] Signup succeeded'),
 };
 
 export class LoadAction implements Action {
@@ -190,6 +192,19 @@ export class LogoutAction implements Action {
 
   constructor(public payload: any) { }
 }
+
+export class SignupAction implements Action {
+  readonly type = ActionTypes.SIGNUP;
+
+  constructor(public payload: any) { }
+}
+
+export class SignupSuccessAction implements Action {
+  readonly type = ActionTypes.SIGNUP_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
 export type Actions
   = LoadAction
   | LoadSuccessAction
@@ -217,4 +232,6 @@ export type Actions
   | CheckoutCartAction
   | LoginAction
   | LoginSuccessAction
-  | LogoutAction;
+  | LogoutAction
+  | SignupAction
+  | SignupSuccessAction;

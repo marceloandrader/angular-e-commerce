@@ -20,4 +20,6 @@ REVOKE ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public FROM api_admin;
 
 -- This grants can be executed multiple times
 grant SELECT on table public.categories, public.products, public.users to anon;
+grant INSERT on table public.users to anon;
+grant USAGE on sequence public.users_id_seq to anon;
 grant execute on function login(text,text) to anon;

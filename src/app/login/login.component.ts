@@ -31,11 +31,11 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private store: Store<fromRoot.State>, fb: FormBuilder,private state: StateService, private toasterService: ToasterService) {
+  constructor(private store: Store<fromRoot.State>, fb: FormBuilder, private state: StateService, private toasterService: ToasterService) {
     this.loginForm = fb.group({
       'email': [null, Validators.compose([Validators.required, Validators.email])],
       'pass': [null, Validators.compose([Validators.required])],
-    })
+    });
   }
 
   ngOnInit() {
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.login(
         this.loginForm.controls['email'].value,
-        this.loginForm.controls['pass'].value)
+        this.loginForm.controls['pass'].value);
     }
   }
 

@@ -70,4 +70,15 @@ export class DataService {
   login(params) {
     return this.http.post('http://localhost:3000/rpc/login', params);
   }
+
+  signup(params) {
+    return this.http.post('http://localhost:3000/users', {
+      email: params.email,
+      password: params.pass,
+      first_name: params.first,
+      last_name: params.last,
+      phone: params.phone,
+      role: 'usertoo'
+    });
+  }
 }
