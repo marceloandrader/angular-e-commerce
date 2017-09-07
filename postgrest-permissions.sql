@@ -23,3 +23,8 @@ grant SELECT on table public.categories, public.products, public.users to anon;
 grant INSERT on table public.users to anon;
 grant USAGE on sequence public.users_id_seq to anon;
 grant execute on function login(text,text) to anon;
+
+grant SELECT on table public.categories, public.products, public.users to api_user;
+
+grant SELECT, INSERT on table public.orders, public.order_details to api_user;
+grant USAGE on sequence public.orders_id_seq, public.order_details_id_seq to api_user;

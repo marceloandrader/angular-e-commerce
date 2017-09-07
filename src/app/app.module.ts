@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {reducers, metaReducers} from './reducers/index';
 import {StoreModule} from '@ngrx/store';
 import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {EffectsModule} from '@ngrx/effects';
 import {DataEffects} from './effects/data';
 import {DataService} from './services/data.service';
@@ -30,6 +31,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AddressComponent } from './user-profile/address/address.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import {ProductInCartComponent} from "./cart/product-in-cart/product-in-cart.component";
+import { AuthInterceptor } from './auth-interceptor'
 
 @NgModule({
   declarations: [
@@ -70,6 +72,7 @@ import {ProductInCartComponent} from "./cart/product-in-cart/product-in-cart.com
   providers: [
     DataService,
     { provide: NgModuleFactoryLoader, useClass: SystemJsNgModuleLoader },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })

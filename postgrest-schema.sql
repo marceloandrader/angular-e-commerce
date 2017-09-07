@@ -197,7 +197,7 @@ begin
       row_to_json(r), 'this-is-a-hardcoded-secret'
     ) as token, r.role, r.email
     from (
-      select _role as role, login.email as email,
+      select 'api_' || _role as role, login.email as email,
          extract(epoch from now())::integer + 60*60 as exp
     ) r
     into result;
@@ -210,3 +210,29 @@ INSERT INTO users (email, role, password)
 VALUES ( 'user@gmail.com', 'user', 'user'),
  ( 'manager@gmail.com', 'manager', 'manager'),
  ( 'admin@gmail.com', 'admin', 'admin');
+
+
+create or replace function
+checkout(products json) returns orders
+  language plpgsql
+  as $$
+declare
+  _email varchar(100);
+  result orders;
+  i json;
+begin
+  SELECT current_setting('request.jwt.claim.email') INTO _email;
+
+  insert into orders (user_id, created_on, status) 
+  select id, CURRENT_TIMESTAMP, 'ordered' from users where email = _email
+  returning * into result;
+  
+  FOR i IN SELECT * FROM json_array_elements(products)
+  LOOP
+    insert into order_details(order_id,  product_id, qty, price )
+    values (result.id, (i->>'id')::integer, (i->>'quantity')::integer, (i->>'price')::numeric);
+  END LOOP;
+  
+  return result;
+end;
+$$;

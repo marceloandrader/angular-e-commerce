@@ -81,6 +81,16 @@ export class DataEffects {
     );
 
   @Effect()
+  checkoutCart$: Observable<Action> = this.actions$.ofType(data.ActionTypes.CHECKOUT_CART)
+    .debounceTime(300)
+    .map((action: data.CheckoutCartAction) => action.payload)
+    .switchMap(payload => this.dataService.checkout(payload)
+      .map(res => new data.CheckoutCartSuccessAction(res))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
+
+
+  @Effect()
   add$: Observable<Action> = this.actions$.ofType(data.ActionTypes.ADD)
     .debounceTime(300)
     .map((action: data.UpdateAction) => action.payload)
@@ -94,10 +104,8 @@ export class DataEffects {
     .debounceTime(300)
     .map((action: data.UpdateAction) => action.payload)
     .switchMap(payload => {
-      this.toasterService.pop('error', 'Failure',
-        isObject(payload) ? keys(
-          mapKeys(payload, (value: string, key: string) => `${key}: ${value}`)).join(';') :
-          payload);
+      console.log (payload)
+      this.toasterService.pop('error', 'Failure', payload.message);
       return of(null);
     });
 

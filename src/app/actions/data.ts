@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { type } from '../util';
 import {card} from '../models/card';
+import {cart} from '../models/cart';
 import {product} from "../models/product";
 
 export const ActionTypes = {
@@ -28,6 +29,7 @@ export const ActionTypes = {
   INCREASE_CART: type('[Data] Increase qty on product from cart'),
   DECREASE_CART: type('[Data] Decrease qty on product from cart'),
   CHECKOUT_CART: type('[Data] Proceed to checkout the cart'),
+  CHECKOUT_CART_SUCCESS: type('[Data] Checkout the cart succeeded'),
   LOGIN: type('[Data] Login'),
   LOGIN_SUCCESS: type('[Data] Login succeeded'),
   LOGOUT: type('[Data] Logout'),
@@ -172,7 +174,13 @@ export class DecreaseCartAction implements Action {
 export class CheckoutCartAction implements Action {
   readonly type = ActionTypes.CHECKOUT_CART;
 
-  constructor(public payload?: any) { }
+  constructor(public payload: cart) { }
+}
+
+export class CheckoutCartSuccessAction implements Action {
+  readonly type = ActionTypes.CHECKOUT_CART_SUCCESS;
+
+  constructor(public payload: any) { }
 }
 
 export class LoginAction implements Action {
@@ -230,6 +238,7 @@ export type Actions
   | IncreaseCartAction
   | DecreaseCartAction
   | CheckoutCartAction
+  | CheckoutCartSuccessAction
   | LoginAction
   | LoginSuccessAction
   | LogoutAction

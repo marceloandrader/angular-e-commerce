@@ -78,7 +78,11 @@ export class DataService {
       first_name: params.first,
       last_name: params.last,
       phone: params.phone,
-      role: 'usertoo'
+      role: 'user'
     });
+  }
+
+  checkout(cart) {
+    return this.http.post('http://localhost:3000/rpc/checkout', cart);
   }
 }

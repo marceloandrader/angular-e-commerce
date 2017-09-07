@@ -9,7 +9,7 @@ import {isUndefined} from "util";
   selector: 'app-cart',
   template: `
     <app-product-in-cart *ngFor="let product of cart?.products" [product]="product"></app-product-in-cart>
-    
+
     <div class="text-center">
       <button class="btn btn-lg btn-success" *ngIf="loggedIn" (click)="checkoutCurrentCart()">Checkout Total: {{getCartTotal() | number:'1.2'}}</button>
       <a class="btn btn-lg btn-warning" uiSref="login" *ngIf="!loggedIn">First login or signup to checkout this cart</a>
@@ -53,6 +53,6 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   checkoutCurrentCart() {
-      this.store.dispatch(new data.CheckoutCartAction());
+      this.store.dispatch(new data.CheckoutCartAction(this.cart));
   }
 }
