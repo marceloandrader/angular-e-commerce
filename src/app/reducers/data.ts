@@ -29,23 +29,29 @@ export function reducer(state = dataModel.defaults, action: data.Actions): dataM
       if (!stateCopy.cart) {
         stateCopy.cart = {products: []};
       }
-      stateCopy.cart.products.push(merge({quantity: 1}, action.payload))
+      const found = stateCopy.cart.products.find((p) => {
+        return p.id === action.payload.id;
+      });
+      if (!found) {
+        stateCopy.cart.products.push(merge({quantity: 1}, action.payload))
+      }
       return merge({}, stateCopy);
     case data.ActionTypes.REMOVE_FROM_CART:
       stateCopy.cart.products = without(stateCopy.cart.products, action.payload)
       return merge({}, stateCopy);
     case data.ActionTypes.INCREASE_CART:
-      stateCopy.cart.products = without(state.cart.products, find(state.cart.products, (p) => p.id === action.payload.id));
-      const prod = clone(action.payload);
-      prod.quantity += 1;
-      stateCopy.cart.products.push(prod);
+      stateCopy.cart.products.map((p) => {
+        if (p.id === action.payload.id) {
+          p.quantity += 1;
+        }
+      })
       return merge({}, stateCopy);
     case data.ActionTypes.DECREASE_CART:
-      if (action.payload.quantity === 1) { return state; }
-      stateCopy.cart.products = without(state.cart.products, find(state.cart.products, (p) => p.id === action.payload.id));
-      const product = clone(action.payload);
-      product.quantity -= 1;
-      stateCopy.cart.products.push(product);
+      stateCopy.cart.products.map((p) => {
+        if (p.id === action.payload.id) {
+          p.quantity -= 1;
+        }
+      })
       return merge({}, stateCopy);
     case data.ActionTypes.LOGIN_SUCCESS:
       return merge({}, state, {currentUser: action.payload[0]});
