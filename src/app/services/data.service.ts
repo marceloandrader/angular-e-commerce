@@ -66,4 +66,8 @@ export class DataService {
   loadCategoriesWithProducts() {
     return this.http.get('http://localhost:3000/categories?select=*,products(*)');
   }
+
+  login(params) {
+    return this.http.post('http://localhost:3000/rpc/login', params);
+  }
 }

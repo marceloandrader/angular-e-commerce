@@ -28,6 +28,9 @@ export const ActionTypes = {
   INCREASE_CART: type('[Data] Increase qty on product from cart'),
   DECREASE_CART: type('[Data] Decrease qty on product from cart'),
   CHECKOUT_CART: type('[Data] Proceed to checkout the cart'),
+  LOGIN: type('[Data] Login'),
+  LOGIN_SUCCESS: type('[Data] Login succeeded'),
+  LOGOUT: type('[Data] Logout'),
 };
 
 export class LoadAction implements Action {
@@ -170,6 +173,23 @@ export class CheckoutCartAction implements Action {
   constructor(public payload?: any) { }
 }
 
+export class LoginAction implements Action {
+  readonly type = ActionTypes.LOGIN;
+
+  constructor(public payload: any) { }
+}
+
+export class LoginSuccessAction implements Action {
+  readonly type = ActionTypes.LOGIN_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
+export class LogoutAction implements Action {
+  readonly type = ActionTypes.LOGOUT;
+
+  constructor(public payload: any) { }
+}
 export type Actions
   = LoadAction
   | LoadSuccessAction
@@ -194,4 +214,7 @@ export type Actions
   | RemoveFromCartAction
   | IncreaseCartAction
   | DecreaseCartAction
-  | CheckoutCartAction;
+  | CheckoutCartAction
+  | LoginAction
+  | LoginSuccessAction
+  | LogoutAction;

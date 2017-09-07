@@ -30,7 +30,7 @@ export function logger(reducer: ActionReducer<State>): any {
 }
 
 export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
-  return localStorageSync({keys: ['ui'], rehydrate: true})(reducer);
+  return localStorageSync({keys: ['ui', 'data'], rehydrate: true})(reducer);
 }
 
 export const metaReducers: MetaReducer<State>[] = !environment.production
@@ -50,6 +50,8 @@ export const getCurrentProduct = createSelector(getDataState, fromData.getCurren
 export const getCategoriesWithProducts = createSelector(getDataState, fromData.getCategoriesWithProducts);
 
 export const getCart = createSelector(getDataState, fromData.getCart);
+
+export const getCurrentUser = createSelector(getDataState, fromData.getCurrentUser);
 
 /* Data */
 

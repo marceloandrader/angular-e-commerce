@@ -45,9 +45,18 @@ export class DataEffects {
   @Effect()
   load$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOAD)
     .debounceTime(300)
-    .map((action: data.UpdateAction) => action.payload)
+    .map((action: data.LoadAction) => action.payload)
     .switchMap(payload => this.dataService.load()
       .map(res => new data.LoadSuccessAction(res))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
+
+  @Effect()
+  login$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOGIN)
+    .debounceTime(300)
+    .map((action: data.LoginAction) => action.payload)
+    .switchMap(payload => this.dataService.login(payload)
+      .map(res => new data.LoginSuccessAction(res))
       .catch(err => of(new data.ServerFailAction(err)))
     );
 
