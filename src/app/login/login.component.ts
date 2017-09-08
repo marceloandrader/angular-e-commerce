@@ -30,6 +30,7 @@ import {StateService} from "@uirouter/angular/lib";
 export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
+  private waiting: boolean = true;
 
   constructor(private store: Store<fromRoot.State>, fb: FormBuilder, private state: StateService, private toasterService: ToasterService) {
     this.loginForm = fb.group({
@@ -51,11 +52,14 @@ export class LoginComponent implements OnInit {
 
   login(email, pass) {
     this.store.dispatch(new data.LoginAction({email, pass}));
+    this.waiting = true;
     this.store.select(fromRoot.getCurrentUser)
+      .takeWhile(() => this.waiting)
       .subscribe((newUser) => {
         if (newUser) {
           this.toasterService.pop('success', 'Successfully logged in', 'Redirecting...');
           this.state.go('home');
+          this.waiting = false;
         }
       })
   }
