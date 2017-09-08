@@ -41,8 +41,6 @@ export const metaReducers: MetaReducer<State>[] = !environment.production
 
 export const getDataState = (state: State) => state.data;
 
-export const getCards = createSelector(getDataState, fromData.getCards);
-
 export const getProducts = createSelector(getDataState, fromData.getProducts);
 
 export const getCurrentProduct = createSelector(getDataState, fromData.getCurrentProduct);

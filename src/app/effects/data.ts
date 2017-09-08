@@ -45,15 +45,6 @@ export class DataEffects {
     );
 
   @Effect()
-  load$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOAD)
-    .debounceTime(300)
-    .map((action: data.LoadAction) => action.payload)
-    .switchMap(payload => this.dataService.load()
-      .map(res => new data.LoadSuccessAction(res))
-      .catch(err => of(new data.ServerFailAction(err)))
-    );
-
-  @Effect()
   login$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOGIN)
     .debounceTime(300)
     .map((action: data.LoginAction) => action.payload)
@@ -99,48 +90,16 @@ export class DataEffects {
           .catch(err => of(new data.ServerFailAction(err)))
     );
 
-  @Effect()
-  add$: Observable<Action> = this.actions$.ofType(data.ActionTypes.ADD)
-    .debounceTime(300)
-    .map((action: data.UpdateAction) => action.payload)
-    .switchMap(payload => this.dataService.add(payload)
-      .map(res => new data.ServerAddSuccessAction(res))
-      .catch(err => of(new data.ServerFailAction(err)))
-    );
 
   @Effect({dispatch: false})
   addFail$: Observable<Action> = this.actions$.ofType(data.ActionTypes.SERVER_FAIL)
     .debounceTime(300)
-    .map((action: data.UpdateAction) => action.payload)
+    .map((action: data.LoginAction) => action.payload)
     .switchMap(payload => {
       console.log (payload)
       this.toasterService.pop('error', 'Failure', payload.message);
       return of(null);
     });
-
-  @Effect()
-  remove$: Observable<Action> = this.actions$.ofType(data.ActionTypes.REMOVE)
-    .debounceTime(300)
-    .map((action: data.UpdateAction) => action.payload)
-    .switchMap(payload => this.dataService.remove(payload)
-      .map(res => new data.RemoveSuccessAction(payload))
-      .catch(err => of(new data.ServerFailAction(err)))
-    );
-
-  @Effect()
-  update$: Observable<Action> = this.actions$.ofType(data.ActionTypes.UPDATE)
-    .debounceTime(300)
-    .map((action: data.UpdateAction) => action.payload)
-    .switchMap(payload => this.dataService.update(payload)
-      .map(res => new data.UpdateSuccessAction(res))
-      .catch(err => of(new data.ServerFailAction(err)))
-    );
-
-  @Effect({dispatch: false})
-  refreshToken$: Observable<Action> = this.actions$.ofType(data.ActionTypes.REFRESH_TOKEN)
-    .debounceTime(300)
-    .switchMap(() => this.dataService.refreshToken().map(() => null));
-
 
   constructor(private actions$: Actions, private dataService: DataService, private toasterService: ToasterService, private store: Store<fromRoot.State>) {
   }
