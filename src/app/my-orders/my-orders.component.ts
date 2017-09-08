@@ -11,7 +11,12 @@ import { order } from "../models/order";
           <div class="card-block">
             <h4 class="card-title">Order Number {{order.id}} <span class="badge-success">{{order.status}}</span> </h4>
             <p class="card-text">Order date: {{order.created_on | date:'mediumDate'}}.</p>
-            <a href="#" class="btn btn-outline-primary">View details</a>
+            <a class="btn btn-outline-primary" (click)="showDetails(order.id)" *ngIf="!isShowingDetails[order.id]">View details</a>
+            <a class="btn btn-outline-primary" (click)="hideDetails(order.id)" *ngIf="isShowingDetails[order.id]">Hide details</a>
+
+            <ul *ngIf="isShowingDetails[order.id]">
+              <li *ngFor="let od of order.order_details">{{od.products.name}} &times; {{od.qty}} ~ {{od.price | number:'1.2'}} USD = {{od.qty * od.price | number:'1.2'}} </li>
+            </ul>
           </div>
       </div>
     </div>
@@ -21,6 +26,7 @@ import { order } from "../models/order";
 export class MyOrdersComponent implements OnInit {
 
   private orders:Array<order>;
+  private isShowingDetails: Array<boolean> = [];
 
   constructor(private store: Store<fromRoot.State>) {
     this.store.select(fromRoot.getOrders)
@@ -28,6 +34,14 @@ export class MyOrdersComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  showDetails(id) {
+    this.isShowingDetails[id] = true;
+  }
+
+  hideDetails(id) {
+    this.isShowingDetails[id] = false;
   }
 
 }
