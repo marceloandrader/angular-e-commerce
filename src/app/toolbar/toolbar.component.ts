@@ -22,6 +22,9 @@ import {StateService} from "@uirouter/angular/lib";
         <li class="nav-item">
           <a class="nav-link" uiSrefActive="active" uiSref="cart">Your current Cart</a>
         </li>
+        <li *ngIf="loggedIn && isAdmin">
+          <a class="nav-link" uiSrefActive="active" uiSref="admin">Manage the Site</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" uiSrefActive="active" uiSref="login" *ngIf="!loggedIn">Sign In</a>
         </li>
@@ -36,6 +39,7 @@ import {StateService} from "@uirouter/angular/lib";
 export class ToolbarComponent implements OnInit {
 
   public loggedIn: boolean;
+  public isAdmin: boolean;
   public name: string;
   private waiting: boolean = true;
 
@@ -44,6 +48,7 @@ export class ToolbarComponent implements OnInit {
       this.loggedIn = !isUndefined(user);
       if (this.loggedIn) {
         this.name = user.email;
+        this.isAdmin = user.role != 'api_user';
       }
     });
   }

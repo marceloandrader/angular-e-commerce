@@ -223,16 +223,16 @@ declare
 begin
   SELECT current_setting('request.jwt.claim.email') INTO _email;
 
-  insert into orders (user_id, created_on, status) 
+  insert into orders (user_id, created_on, status)
   select id, CURRENT_TIMESTAMP, 'ordered' from users where email = _email
   returning * into result;
-  
+
   FOR i IN SELECT * FROM json_array_elements(products)
   LOOP
     insert into order_details(order_id,  product_id, qty, price )
     values (result.id, (i->>'id')::integer, (i->>'quantity')::integer, (i->>'price')::numeric);
   END LOOP;
-  
+
   return result;
 end;
 $$;

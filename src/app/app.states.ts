@@ -53,12 +53,5 @@ export let MAIN_STATES: Ng2StateDeclaration[] = [
   { name: 'search', url: '/search?query&category', component: SearchResultsComponent, onEnter: loadProducts},
   { name: 'product', url: '/product/:productId', component: ProductComponent, onEnter: loadProduct},
   { name: 'cart', url: '/cart', component: CartComponent},
-  // { name: 'cards.**',
-    // url: '/cards',
-    // loadChildren: './cards/cards.module#CardsModule'
-  // },
-  // { name: 'user.**',
-  //   url: '/user',
-  //   loadChildren: './user/user.module#UserModule'
-  // },
+  { name: 'admin.**', url: '/admin', loadChildren: './admin/admin.module#AdminModule' }
 ];

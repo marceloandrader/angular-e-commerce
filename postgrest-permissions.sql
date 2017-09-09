@@ -24,8 +24,15 @@ grant INSERT on table public.users to anon;
 grant USAGE on sequence public.users_id_seq to anon;
 grant execute on function login(text,text) to anon;
 
+-- API USER
 grant SELECT on table public.categories, public.products, public.users to api_user;
 grant execute on function checkout(text,text) to api_user;
 
 grant SELECT, INSERT on table public.orders, public.order_details to api_user;
 grant USAGE on sequence public.orders_id_seq, public.order_details_id_seq to api_user;
+
+-- API MANAGER
+grant SELECT on table public.categories, public.products, public.users to api_manager;
+
+-- API ADMIN
+grant SELECT on table public.categories, public.products, public.users to api_manager;
