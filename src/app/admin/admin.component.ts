@@ -5,7 +5,9 @@ import { Component, OnInit } from '@angular/core';
   template: `
   <h1>Welcome to the management site</h1>
   <a class="list-group">
+    <a class="list-group-item list-group-item-action" uiSref="admin-categories">Categories</a>
     <a class="list-group-item list-group-item-action" uiSref="admin-products">Products</a>
+    <a class="list-group-item list-group-item-action" uiSref="admin-users">Users</a>
   </a>
   `,
   styles: []

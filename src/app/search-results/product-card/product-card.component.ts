@@ -16,7 +16,7 @@ import {ToasterService} from "angular2-toaster";
     <div class="product-card card">
       <div class="card-block">
         <img src="http://lorempixel.com/120/120/food?random={{product.id}}" class="rounded float-left mr-4" alt="Product picture">
-        <h4 class="card-title">{{product.name}}</h4>
+        <h4 class="card-title">{{product.name}} <small>in {{product.category?.name}}</small></h4>
         <h6 class="card-subtitle mb-2 text-muted">Price: {{product.price | number:'1.2'}} USD</h6>
         <p class="card-text">{{product.description}}</p>
         <a href="javascript:void(false);" (click)="addToCart(product)" class="float-right btn btn-primary">Add to Cart</a>

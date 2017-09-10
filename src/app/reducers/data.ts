@@ -13,7 +13,7 @@ export function reducer(state = dataModel.defaults, action: data.Actions): dataM
     case data.ActionTypes.LOAD_PRODUCT_SUCCESS:
       return merge({}, state, {currentProduct: action.payload[0]});
     case data.ActionTypes.LOAD_CATEGORIES_WITH_PRODUCTS_SUCCESS:
-      return merge({}, state, {categories: action.payload});
+      return merge({}, state, {categoriesWithProducts: action.payload});
     case data.ActionTypes.ADD_TO_CART:
       if (!stateCopy.cart) {
         stateCopy.cart = {products: []};
@@ -53,6 +53,12 @@ export function reducer(state = dataModel.defaults, action: data.Actions): dataM
     case data.ActionTypes.LOAD_ORDERS_SUCCESS:
       delete stateCopy.orders;
       return merge({}, stateCopy, {orders: action.payload});
+    case data.ActionTypes.LOAD_CATEGORIES_SUCCESS:
+      delete stateCopy.categories;
+      return merge({}, state, {categories: action.payload});
+    case data.ActionTypes.LOAD_USERS_SUCCESS:
+      delete stateCopy.users;
+      return merge({}, state, {users: action.payload});
     default:
       return state;
   }
@@ -61,6 +67,8 @@ export function reducer(state = dataModel.defaults, action: data.Actions): dataM
 export const getCurrentUser = (state: dataModel.Data) => state.currentUser;
 export const getProducts = (state: dataModel.Data) => state.products;
 export const getCurrentProduct = (state: dataModel.Data) => state.currentProduct;
-export const getCategoriesWithProducts  = (state: dataModel.Data) => state.categories;
+export const getCategoriesWithProducts  = (state: dataModel.Data) => state.categoriesWithProducts;
 export const getCart  = (state: dataModel.Data) => state.cart;
 export const getOrders = (state: dataModel.Data) => state.orders;
+export const getUsers = (state: dataModel.Data) => state.users;
+export const getCategories = (state: dataModel.Data) => state.categories;

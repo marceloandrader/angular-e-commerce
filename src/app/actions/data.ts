@@ -10,8 +10,8 @@ export const ActionTypes = {
   LOAD_PRODUCTS_SUCCESS: type('[Data] Load products Success'),
   LOAD_PRODUCT: type('[Data] Load product'),
   LOAD_PRODUCT_SUCCESS: type('[Data] Load product Success'),
-  LOAD_CATEGORIES_WITH_PRODUCTS: type('[Data] Load categories'),
-  LOAD_CATEGORIES_WITH_PRODUCTS_SUCCESS: type('[Data] Load categories Success'),
+  LOAD_CATEGORIES_WITH_PRODUCTS: type('[Data] Load categories with products'),
+  LOAD_CATEGORIES_WITH_PRODUCTS_SUCCESS: type('[Data] Load categories with products Success'),
   ADD_TO_CART: type('[Data] Add to Cart'),
   REMOVE_FROM_CART: type('[Data] Remove from Cart'),
   INCREASE_CART: type('[Data] Increase qty on product from cart'),
@@ -25,6 +25,10 @@ export const ActionTypes = {
   SIGNUP_SUCCESS: type('[Data] Signup succeeded'),
   LOAD_ORDERS: type('[Data] Load orders'),
   LOAD_ORDERS_SUCCESS: type('[Data] Load orders Success'),
+  LOAD_CATEGORIES: type('[Data] Load categories'),
+  LOAD_CATEGORIES_SUCCESS: type('[Data] Load categories Success'),
+  LOAD_USERS: type('[Data] Load users'),
+  LOAD_USERS_SUCCESS: type('[Data] Load users Success'),
 };
 
 export class ServerFailAction implements Action {
@@ -144,6 +148,30 @@ export class LoadOrdersSuccessAction implements Action {
   constructor(public payload: any) { }
 }
 
+
+export class LoadCategoriesAction implements Action {
+  readonly type = ActionTypes.LOAD_CATEGORIES;
+
+  constructor(public payload: any) { }
+}
+export class LoadCategoriesSuccessAction implements Action {
+  readonly type = ActionTypes.LOAD_CATEGORIES_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
+
+export class LoadUsersAction implements Action {
+  readonly type = ActionTypes.LOAD_USERS;
+
+  constructor(public payload: any) { }
+}
+export class LoadUsersSuccessAction implements Action {
+  readonly type = ActionTypes.LOAD_USERS_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
 export type Actions
   = ServerFailAction
   | LoadProductsAction
@@ -164,4 +192,8 @@ export type Actions
   | SignupAction
   | SignupSuccessAction
   | LoadOrdersAction
-  | LoadOrdersSuccessAction;
+  | LoadOrdersSuccessAction
+  | LoadCategoriesAction
+  | LoadCategoriesSuccessAction
+  | LoadUsersAction
+  | LoadUsersSuccessAction;

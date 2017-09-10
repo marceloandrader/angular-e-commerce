@@ -90,6 +90,26 @@ export class DataEffects {
           .catch(err => of(new data.ServerFailAction(err)))
     );
 
+  @Effect()
+  loadUsers$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOAD_USERS)
+    .debounceTime(300)
+    .map((action: data.LoadUsersAction) => action.payload)
+    .switchMap(payload => this.dataService.loadUsers(payload)
+      .map(res => new data.LoadUsersSuccessAction(res))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
+
+  @Effect()
+  /**
+   *
+   */
+  loadCategories$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOAD_CATEGORIES)
+    .debounceTime(300)
+    .map((action: data.LoadCategoriesAction) => action.payload)
+    .switchMap(payload => this.dataService.loadCategories(payload)
+      .map(res => new data.LoadCategoriesSuccessAction(res))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
 
   @Effect({dispatch: false})
   addFail$: Observable<Action> = this.actions$.ofType(data.ActionTypes.SERVER_FAIL)

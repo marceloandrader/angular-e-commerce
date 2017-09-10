@@ -31,7 +31,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AddressComponent } from './user-profile/address/address.component';
 import { MyOrdersComponent } from './my-orders/my-orders.component';
 import {ProductInCartComponent} from "./cart/product-in-cart/product-in-cart.component";
-import { AuthInterceptor } from './auth-interceptor'
+import { AuthInterceptor } from './auth-interceptor';
 
 @NgModule({
   declarations: [

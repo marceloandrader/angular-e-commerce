@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { UIRouterModule } from '@uirouter/angular';
 import { ADMIN_STATES } from './admin.states';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AdminProductsComponent } from "./admin-products/admin-products.component";
 import { AdminComponent } from "./admin.component";
+import { AdminProductsComponent } from "./admin-products/admin-products.component";
+import { AdminUsersComponent } from "./admin-users/admin-users.component";
+import { AdminCategoriesComponent } from "./admin-categories/admin-categories.component";
 
 const ADMIN_COMPONENTS =  [
-  AdminProductsComponent, AdminComponent
+  AdminProductsComponent, AdminComponent, AdminUsersComponent, AdminCategoriesComponent
 ];
 
 @NgModule({

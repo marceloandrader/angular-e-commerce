@@ -23,6 +23,7 @@ export class DataService {
     if (params.query) {
       queries.push('name=@@.' + params.query);
     }
+    queries.push('select=*,category(*)');
     queryString += queries.join('&')
     return this.http.get('http://localhost:3000/products' + queryString);
   }
@@ -68,5 +69,21 @@ export class DataService {
 
   loadOrders() {
     return this.http.get('http://localhost:3000/orders?select=*,order_details(*, products(*))&user_id=eq.1&order=id.desc');
+  }
+
+  dispatchLoadCategories(params) {
+    this.store.dispatch(new data.LoadCategoriesAction(params));
+  }
+
+  loadCategories(params) {
+    return this.http.get('http://localhost:3000/categories');
+  }
+
+  dispatchLoadUsers(params) {
+    this.store.dispatch(new data.LoadUsersAction(params));
+  }
+
+  loadUsers(params) {
+    return this.http.get('http://localhost:3000/users');
   }
 }

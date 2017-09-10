@@ -53,6 +53,10 @@ export const getCurrentUser = createSelector(getDataState, fromData.getCurrentUs
 
 export const getOrders = createSelector(getDataState, fromData.getOrders);
 
+export const getUsers = createSelector(getDataState, fromData.getUsers);
+
+export const getCategories = createSelector(getDataState, fromData.getCategories);
+
 /* Data */
 
 export const getUiState = (state: State) => state.ui;
