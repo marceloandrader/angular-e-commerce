@@ -48,7 +48,7 @@ export class ToolbarComponent implements OnInit {
       this.loggedIn = !isUndefined(user);
       if (this.loggedIn) {
         this.name = user.email;
-        this.isAdmin = user.role != 'api_user';
+        this.isAdmin = user.role !== 'api_user';
       }
     });
   }

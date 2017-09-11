@@ -51,7 +51,7 @@ import * as data from '../../actions/data';
         <th>Name</th>
         <th>Description</th>
         <th class="text-right">Price (USD)</th>
-        <th class="text-right">Delete</th>
+        <th class="text-right" *ngIf="isAdmin">Delete</th>
       </tr>
       </thead>
       <tbody>
@@ -61,7 +61,7 @@ import * as data from '../../actions/data';
         <td>{{product.name}}</td>
         <td>{{product.description}}</td>
         <td class="text-right">{{product.price | number:'1.2'}}</td>
-        <td class="text-right"><a href="javascript:void(false);" (click)="deleteProduct(product)">Delete?</a></td>
+        <td class="text-right" *ngIf="isAdmin"><a href="javascript:void(false);" (click)="deleteProduct(product)">Delete?</a></td>
       </tr>
       </tbody>
     </table>
@@ -75,6 +75,10 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   public showForm: boolean = false;
   productForm: FormGroup;
 
+  public isAdmin: boolean;
+  public isManager: boolean;
+
+
   constructor(private store: Store<fromRoot.State>, fb: FormBuilder, private toasterService: ToasterService) {
     this.productForm = fb.group({
       'id': [null],
@@ -82,6 +86,13 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       'category_id': [null, Validators.compose([Validators.required])],
       'description': [null, Validators.compose([Validators.required])],
       'price': [null, Validators.compose([Validators.required, Validators.min(1)])],
+    });
+
+    this.store.select(fromRoot.getCurrentUser)
+      .takeWhile(() => this.alive)
+      .subscribe((user) => {
+        this.isAdmin = user.role === 'api_admin';
+        this.isManager = user.role === 'api_manager';
     });
   }
 
@@ -124,9 +135,11 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     this.store.select(fromRoot.isSavedProduct)
       .takeWhile(() => this.waiting)
       .subscribe((savedProduct) => {
-        this.toasterService.pop('success', 'Product deleted', 'Successfully deleted product');
-        this.store.dispatch(new data.LoadProductsAction({})); // @TODO not reloading the data on the table
-        this.waiting = false;
+        if (savedProduct) {
+          this.toasterService.pop('success', 'Product deleted', 'Successfully deleted product');
+          this.store.dispatch(new data.LoadProductsAction({})); // @TODO not reloading the data on the table
+          this.waiting = false;
+        }
       });
   }
 
@@ -146,10 +159,12 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
     this.store.select(fromRoot.isSavedProduct)
       .takeWhile(() => this.waiting)
       .subscribe((savedProduct) => {
-        this.toasterService.pop('success', 'Product saved', 'Successfully saved product');
-        this.showForm = false;
-        this.store.dispatch(new data.LoadProductsAction({})); // @TODO not reloading the data on the table
-        this.waiting = false;
+        if (savedProduct) {
+          this.toasterService.pop('success', 'Product saved', 'Successfully saved product');
+          this.showForm = false;
+          this.store.dispatch(new data.LoadProductsAction({})); // @TODO not reloading the data on the table
+          this.waiting = false;
+        }
     });
   }
 }
