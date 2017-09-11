@@ -38,6 +38,8 @@ export const ActionTypes = {
   LOAD_SYSTEM_ORDERS_SUCCESS: type('[Data] Load system orders Success'),
   DELETE_ORDER: type('[Data] Delete an order'),
   DELETE_ORDER_SUCCESS: type('[Data] Delete order Success'),
+  SHIP_ORDER: type('[Data] Ship an order'),
+  SHIP_ORDER_SUCCESS: type('[Data] Ship order Success'),
 };
 
 export class ServerFailAction implements Action {
@@ -225,6 +227,17 @@ export class DeleteOrderSuccessAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class ShipOrderAction implements Action {
+  readonly type = ActionTypes.SHIP_ORDER;
+
+  constructor(public payload: product) { }
+}
+export class ShipOrderSuccessAction implements Action {
+  readonly type = ActionTypes.SHIP_ORDER_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
 export type Actions
   = ServerFailAction
   | LoadProductsAction
@@ -257,4 +270,6 @@ export type Actions
   | LoadSystemOrdersAction
   | LoadSystemOrdersSuccessAction
   | DeleteOrderAction
-  | DeleteOrderSuccessAction;
+  | DeleteOrderSuccessAction
+  | ShipOrderAction
+  | ShipOrderSuccessAction;

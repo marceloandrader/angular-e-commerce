@@ -146,6 +146,16 @@ export class DataEffects {
       .catch(err => of(new data.ServerFailAction(err)))
     );
 
+  @Effect()
+  shipOrder$: Observable<Action> = this.actions$.ofType(data.ActionTypes.SHIP_ORDER)
+    .debounceTime(300)
+    .map((action: data.ShipOrderAction) => action.payload)
+    .switchMap(payload => this.dataService.shipOrder(payload)
+      .map(res => new data.ShipOrderSuccessAction(res))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
+
+
   @Effect({dispatch: false})
   addFail$: Observable<Action> = this.actions$.ofType(data.ActionTypes.SERVER_FAIL)
     .debounceTime(300)

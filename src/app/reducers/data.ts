@@ -68,8 +68,10 @@ export function reducer(state = dataModel.defaults, action: data.Actions): dataM
       delete stateCopy.systemOrders;
       return merge({}, stateCopy, {systemOrders: action.payload});
     case data.ActionTypes.DELETE_ORDER:
+    case data.ActionTypes.SHIP_ORDER:
       return merge({}, stateCopy, {savedOrder: false});
     case data.ActionTypes.DELETE_ORDER_SUCCESS:
+    case data.ActionTypes.SHIP_ORDER_SUCCESS:
       return merge({}, stateCopy, {savedOrder: true});
     default:
       return state;

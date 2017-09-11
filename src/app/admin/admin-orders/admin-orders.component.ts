@@ -20,6 +20,7 @@ import * as data from '../../actions/data';
         <th>Payment Token</th>
         <th class="text-right">Total (USD)</th>
         <th class="text-right" *ngIf="isAdmin">Delete</th>
+        <th class="text-right" *ngIf="isManager">Ship</th>
       </tr>
       </thead>
       <tbody>
@@ -31,6 +32,7 @@ import * as data from '../../actions/data';
         <td>{{order.payment_token}}</td>
         <td class="text-right">{{getTotal(order) | number:'1.2'}}</td>
         <td class="text-right" *ngIf="isAdmin"><a href="javascript:void(false);" (click)="deleteOrder(order)">Delete?</a></td>
+        <td class="text-right" *ngIf="isManager"><a href="javascript:void(false);" (click)="shipOrder(order)">Ship?</a></td>
       </tr>
       </tbody>
     </table>
@@ -73,11 +75,6 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
       .takeWhile(() => this.alive);
   }
 
-  editOrder(order) {
-    this.showForm = true;
-    this.productForm.controls['id'].setValue(order.id);
-  }
-
   getTotal(order) {
     if (!order) return 0;
     return order.order_details.reduce(function(previousValue, currentValue){
@@ -102,29 +99,21 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
       });
   }
 
-  // saveProduct() {
-  //   if (!this.productForm.valid) {
-  //     this.toasterService.pop('warning', 'Invalid Data', 'Please fill all the required fields');
-  //     return;
-  //   }
-  //   this.store.dispatch(new data.SaveProductAction({
-  //     id: this.productForm.controls['id'].value,
-  //     name: this.productForm.controls['name'].value,
-  //     description: this.productForm.controls['description'].value,
-  //     price: this.productForm.controls['price'].value,
-  //     category_id: this.productForm.controls['category_id'].value,
-  //   }));
-  //   this.waiting = true;
-  //   this.store.select(fromRoot.isSavedProduct)
-  //     .takeWhile(() => this.waiting)
-  //     .subscribe((savedProduct) => {
-  //       if (savedProduct) {
-  //         this.toasterService.pop('success', 'Product saved', 'Successfully saved product');
-  //         this.showForm = false;
-  //         this.store.dispatch(new data.LoadProductsAction({})); // @TODO not reloading the data on the table
-  //         this.waiting = false;
-  //       }
-  //     });
-  // }
+  shipOrder(order) {
+    if (!window.confirm('Are you sure you want to ship this order?')) {
+      return;
+    }
+    this.store.dispatch(new data.ShipOrderAction(order));
+    this.waiting = true;
+    this.store.select(fromRoot.isSavedOrder)
+      .takeWhile(() => this.waiting)
+      .subscribe((savedOrder) => {
+        if (savedOrder) {
+          this.toasterService.pop('success', 'Order shipped', 'Successfully shipped order');
+          this.store.dispatch(new data.LoadSystemOrdersAction({}));
+          this.waiting = false;
+        }
+      });
+  }
 }
 

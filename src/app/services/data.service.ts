@@ -114,4 +114,8 @@ export class DataService {
     return this.http.delete('http://localhost:3000/orders?id=eq.' + order.id);
   }
 
+  shipOrder(order) {
+    return this.http.patch('http://localhost:3000/orders?id=eq.' + order.id, {status: 'shipped'});
+  }
+
 }

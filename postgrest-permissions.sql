@@ -34,6 +34,7 @@ grant USAGE on sequence public.orders_id_seq, public.order_details_id_seq to api
 -- API MANAGER
 grant SELECT on table public.categories, public.products, public.users, public.orders, public.order_details to api_manager;
 grant update, insert on public.products to api_manager;
+grant update on public.orders to api_manager;
 grant USAGE on sequence public.products_id_seq to api_manager;
 
 -- API ADMIN
