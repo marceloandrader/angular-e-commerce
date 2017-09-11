@@ -16,6 +16,8 @@ export interface Data {
   currentProduct?: product;
   cart?: cart;
   currentUser?: currentUser;
+
+  savedProduct: boolean;
 }
 
 export const defaults: Data = {
@@ -24,4 +26,6 @@ export const defaults: Data = {
   categoriesWithProducts: [],
   categories: [],
   users: [],
+
+  savedProduct: false,
 };

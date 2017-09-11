@@ -100,9 +100,6 @@ export class DataEffects {
     );
 
   @Effect()
-  /**
-   *
-   */
   loadCategories$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOAD_CATEGORIES)
     .debounceTime(300)
     .map((action: data.LoadCategoriesAction) => action.payload)
@@ -110,6 +107,25 @@ export class DataEffects {
       .map(res => new data.LoadCategoriesSuccessAction(res))
       .catch(err => of(new data.ServerFailAction(err)))
     );
+
+  @Effect()
+  saveProduct$: Observable<Action> = this.actions$.ofType(data.ActionTypes.SAVE_PRODUCT)
+    .debounceTime(300)
+    .map((action: data.SaveProductAction) => action.payload)
+    .switchMap(payload => this.dataService.saveProduct(payload)
+      .map(res => new data.SaveProductSuccessAction(res))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
+
+  @Effect()
+  deleteProduct$: Observable<Action> = this.actions$.ofType(data.ActionTypes.DELETE_PRODUCT)
+    .debounceTime(300)
+    .map((action: data.DeleteProductAction) => action.payload)
+    .switchMap(payload => this.dataService.deleteProduct(payload)
+      .map(res => new data.DeleteProductSuccessAction(res))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
+
 
   @Effect({dispatch: false})
   addFail$: Observable<Action> = this.actions$.ofType(data.ActionTypes.SERVER_FAIL)

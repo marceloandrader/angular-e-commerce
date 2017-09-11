@@ -29,6 +29,10 @@ export const ActionTypes = {
   LOAD_CATEGORIES_SUCCESS: type('[Data] Load categories Success'),
   LOAD_USERS: type('[Data] Load users'),
   LOAD_USERS_SUCCESS: type('[Data] Load users Success'),
+  SAVE_PRODUCT: type('[Data] Save a product'),
+  SAVE_PRODUCT_SUCCESS: type('[Data] Save product Success'),
+  DELETE_PRODUCT: type('[Data] Delete a product'),
+  DELETE_PRODUCT_SUCCESS: type('[Data] Delete product Success'),
 };
 
 export class ServerFailAction implements Action {
@@ -172,6 +176,28 @@ export class LoadUsersSuccessAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class SaveProductAction implements Action {
+  readonly type = ActionTypes.SAVE_PRODUCT;
+
+  constructor(public payload: product) { }
+}
+export class SaveProductSuccessAction implements Action {
+  readonly type = ActionTypes.SAVE_PRODUCT_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
+export class DeleteProductAction implements Action {
+  readonly type = ActionTypes.DELETE_PRODUCT;
+
+  constructor(public payload: product) { }
+}
+export class DeleteProductSuccessAction implements Action {
+  readonly type = ActionTypes.DELETE_PRODUCT_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
 export type Actions
   = ServerFailAction
   | LoadProductsAction
@@ -196,4 +222,8 @@ export type Actions
   | LoadCategoriesAction
   | LoadCategoriesSuccessAction
   | LoadUsersAction
-  | LoadUsersSuccessAction;
+  | LoadUsersSuccessAction
+  | SaveProductAction
+  | SaveProductSuccessAction
+  | DeleteProductAction
+  | DeleteProductSuccessAction;

@@ -4,6 +4,7 @@ import { trim } from 'lodash';
 import {Store} from '@ngrx/store';
 import * as fromRoot from '../reducers';
 import * as data from '../actions/data';
+import { clone } from 'lodash';
 
 @Injectable()
 export class DataService {
@@ -24,6 +25,7 @@ export class DataService {
       queries.push('name=@@.' + params.query);
     }
     queries.push('select=*,category(*)');
+    queries.push('order=category_id,id');
     queryString += queries.join('&')
     return this.http.get('http://localhost:3000/products' + queryString);
   }
@@ -85,5 +87,18 @@ export class DataService {
 
   loadUsers(params) {
     return this.http.get('http://localhost:3000/users');
+  }
+
+  saveProduct(product) {
+    if (product.id) {
+      return this.http.patch('http://localhost:3000/products?id=eq.' + product.id, product);
+    }
+    const productClone = clone(product);
+    delete productClone.id;
+    return this.http.post('http://localhost:3000/products', productClone);
+  }
+
+  deleteProduct(product) {
+    return this.http.delete('http://localhost:3000/products?id=eq.' + product.id);
   }
 }

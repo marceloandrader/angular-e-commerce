@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
     <a class="list-group-item list-group-item-action" uiSref="admin-categories">Categories</a>
     <a class="list-group-item list-group-item-action" uiSref="admin-products">Products</a>
     <a class="list-group-item list-group-item-action" uiSref="admin-users">Users</a>
+    
+    <a class="list-group-item list-group-item-action" uiSref="admin-users">Orders</a>
   </a>
   `,
   styles: []

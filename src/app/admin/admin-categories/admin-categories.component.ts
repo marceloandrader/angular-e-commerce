@@ -2,10 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { category } from "../../models/category";
 import * as fromRoot from '../../reducers';
 import {Store} from "@ngrx/store";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-admin-categories',
   template: `
+  <h2>Manage Categories</h2>
   <table class="table">
   <thead>
   <tr>
@@ -28,7 +30,7 @@ export class AdminCategoriesComponent implements OnInit, OnDestroy {
   private alive = true;
   public categories: Array<category>;
 
-  constructor(private store: Store<fromRoot.State>) {
+  constructor(private store: Store<fromRoot.State>, fb: FormBuilder) {
   }
 
   ngOnInit() {
