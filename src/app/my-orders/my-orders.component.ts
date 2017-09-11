@@ -25,8 +25,8 @@ import { order } from "../models/order";
 })
 export class MyOrdersComponent implements OnInit {
 
-  private orders:Array<order>;
-  private isShowingDetails: Array<boolean> = [];
+  public orders:Array<order>;
+  public isShowingDetails: Array<boolean> = [];
 
   constructor(private store: Store<fromRoot.State>) {
     this.store.select(fromRoot.getOrders)

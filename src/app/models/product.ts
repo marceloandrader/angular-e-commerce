@@ -1,3 +1,5 @@
+import {category} from './category';
+
 export interface product {
   id?: number;
   name: string;
@@ -5,4 +7,5 @@ export interface product {
   price: number;
   quantity?: number;
   category_id?: number;
+  category?: category;
 }
