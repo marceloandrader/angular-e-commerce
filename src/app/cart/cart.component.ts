@@ -6,6 +6,7 @@ import * as data from '../actions/data';
 import {isUndefined} from "util";
 import { ToasterService } from "angular2-toaster/src/toaster.service";
 import {StateService} from "@uirouter/angular/lib";
+import {clone} from 'lodash';
 
 @Component({
   selector: 'app-cart',
@@ -59,13 +60,30 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   checkoutCurrentCart() {
-    this.store.dispatch(new data.CheckoutCartAction(this.cart));
-    this.getCart().subscribe((cart) => {
-      if (!cart) {
-        // cart is empty checkout processed correctly
-        this.toasterService.pop('success', 'Checkout correct', 'Successfully created order');
-        this.state.go('my-orders');
+    const self = this;
+
+    const handler = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_VDbEHDrcTUDgBBrt2GLRHhmF',
+      locale: 'auto',
+      token: function (token: any) {
+        const clonedCart = clone(self.cart);
+        clonedCart.payment_token = token.id;
+        self.store.dispatch(new data.CheckoutCartAction(clonedCart));
+        self.getCart().subscribe((cart) => {
+          if (!cart) {
+            // cart is empty checkout processed correctly
+            self.toasterService.pop('success', 'Checkout correct', 'Successfully created order');
+            self.state.go('my-orders');
+          }
+        });
       }
-    })
+    });
+
+    handler.open({
+      name: 'Angular e-commerce',
+      description: `You are buying ${this.cart.products.length} items`,
+      amount: this.getCartTotal() * 100
+    });
+
   }
 }

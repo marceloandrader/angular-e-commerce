@@ -62,7 +62,7 @@ export class DataService {
   }
 
   checkout(cart) {
-    return this.http.post('http://localhost:3000/rpc/checkout', cart);
+    return this.http.post('http://localhost:3000/rpc/checkout', {cart: cart});
   }
 
   dispatchLoadOrders() {

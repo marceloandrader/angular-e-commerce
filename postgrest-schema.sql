@@ -32,6 +32,7 @@ CREATE TABLE orders (
   user_id integer,
   created_on timestamp not null,
   status char(10),
+  payment_token varchar(200) null,
   CONSTRAINT user_id FOREIGN KEY (user_id)
     references users (id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
@@ -212,8 +213,7 @@ VALUES ( 'user@gmail.com', 'user', 'user'),
  ( 'admin@gmail.com', 'admin', 'admin');
 
 
-create or replace function
-checkout(products json) returns orders
+create or replace function checkout(cart json) returns orders
   language plpgsql
   as $$
 declare
@@ -223,11 +223,11 @@ declare
 begin
   SELECT current_setting('request.jwt.claim.email') INTO _email;
 
-  insert into orders (user_id, created_on, status)
-  select id, CURRENT_TIMESTAMP, 'ordered' from users where email = _email
+  insert into orders (user_id, created_on, status, payment_token)
+  select id, CURRENT_TIMESTAMP, 'paid', cart->>'payment_token'::text from users where email = _email
   returning * into result;
 
-  FOR i IN SELECT * FROM json_array_elements(products)
+  FOR i IN SELECT * FROM json_array_elements(cart->'products')
   LOOP
     insert into order_details(order_id,  product_id, qty, price )
     values (result.id, (i->>'id')::integer, (i->>'quantity')::integer, (i->>'price')::numeric);
