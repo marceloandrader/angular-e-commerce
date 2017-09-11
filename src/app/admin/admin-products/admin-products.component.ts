@@ -40,7 +40,7 @@ import * as data from '../../actions/data';
             <input type="number" placeholder="Price" class="form-control" [formControl]="productForm.controls['price']">
           </div>
         </div>
-        <button class="btn btn-primary" type="submit">Save</button>
+        <button class="btn btn-primary" type="submit">Save</button> or <a href="javascript:void(false);" (click)="cancelForm()">cancel</a>
       </fieldset>
     </form>
     <table class="table">
@@ -114,7 +114,13 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
   }
 
   newProduct() {
+    this.productForm.reset();
     this.showForm = true;
+  }
+
+  cancelForm() {
+    this.showForm = false;
+    this.productForm.reset();
   }
 
   editProduct(product) {
@@ -137,7 +143,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
       .subscribe((savedProduct) => {
         if (savedProduct) {
           this.toasterService.pop('success', 'Product deleted', 'Successfully deleted product');
-          this.store.dispatch(new data.LoadProductsAction({})); // @TODO not reloading the data on the table
+          this.store.dispatch(new data.LoadProductsAction({}));
           this.waiting = false;
         }
       });
@@ -162,7 +168,7 @@ export class AdminProductsComponent implements OnInit, OnDestroy {
         if (savedProduct) {
           this.toasterService.pop('success', 'Product saved', 'Successfully saved product');
           this.showForm = false;
-          this.store.dispatch(new data.LoadProductsAction({})); // @TODO not reloading the data on the table
+          this.store.dispatch(new data.LoadProductsAction({}));
           this.waiting = false;
         }
     });

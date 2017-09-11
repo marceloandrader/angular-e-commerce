@@ -16,10 +16,10 @@ import {StateService} from "@uirouter/angular/lib";
         <li class="nav-item">
           <a class="nav-link" uiSrefActive="active" uiSref="user-profile" *ngIf="loggedIn">Welcome back, {{name}}!</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" uiSrefActive="active" uiSref="my-orders" *ngIf="loggedIn">My Orders</a>
+        <li class="nav-item" *ngIf="loggedIn && !isAdmin">
+          <a class="nav-link" uiSrefActive="active" uiSref="my-orders">My Orders</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item"  *ngIf="!isAdmin">
           <a class="nav-link" uiSrefActive="active" uiSref="cart">Your current Cart</a>
         </li>
         <li *ngIf="loggedIn && isAdmin">

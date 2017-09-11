@@ -63,6 +63,8 @@ export const getSystemOrders = createSelector(getDataState, fromData.getSystemOr
 
 export const isSavedOrder = createSelector(getDataState, fromData.isSavedOrder);
 
+export const isSavedUser = createSelector(getDataState, fromData.isSavedUser);
+
 
 
 /* Data */

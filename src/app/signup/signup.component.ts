@@ -51,7 +51,7 @@ import {StateService} from "@uirouter/angular/lib";
 })
 export class SignupComponent implements OnInit {
 
-
+  private waiting: boolean = false;
   signupForm: FormGroup;
 
   constructor(private store: Store<fromRoot.State>, fb: FormBuilder, private state: StateService, private toasterService: ToasterService) {
@@ -85,11 +85,14 @@ export class SignupComponent implements OnInit {
 
   signup(email, pass, first, last, phone) {
     this.store.dispatch(new data.SignupAction({email, pass, first, last, phone}));
+    this.waiting = true;
     this.store.select(fromRoot.getCurrentUser)
+      .takeWhile(() => this.waiting)
       .subscribe((newUser) => {
         if (newUser) {
           this.toasterService.pop('success', 'Successfully logged in', 'Redirecting...');
           this.state.go('home');
+          this.waiting = false;
         }
       })
   }

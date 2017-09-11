@@ -5,4 +5,6 @@ export interface user {
   last_name: string;
   phone: string;
   role: string;
+
+  password?: string;
 }

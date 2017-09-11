@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { trim } from 'lodash';
 import {Store} from '@ngrx/store';
+import {first} from 'rxjs/operator/first';
 import * as fromRoot from '../reducers';
 import * as data from '../actions/data';
 import { clone } from 'lodash';
@@ -66,11 +67,18 @@ export class DataService {
   }
 
   dispatchLoadOrders() {
-    this.store.dispatch(new data.LoadOrdersAction({}));
+    let next = true;
+    this.store.select(fromRoot.getCurrentUser)
+      .takeWhile(() => next)
+      .subscribe((user) => {
+      console.log(user);
+        next = false;
+        this.store.dispatch(new data.LoadOrdersAction(user));
+      });
   }
 
-  loadOrders() {
-    return this.http.get('http://localhost:3000/orders?select=*,order_details(*, products(*))&user_id=eq.1&order=id.desc');
+  loadOrders(user) {
+    return this.http.get('http://localhost:3000/orders?select=*,order_details(*, products(*))&user_id=eq.' + user.id + '&order=id.desc');
   }
 
   dispatchLoadCategories(params) {
@@ -86,7 +94,7 @@ export class DataService {
   }
 
   loadUsers(params) {
-    return this.http.get('http://localhost:3000/users');
+    return this.http.get('http://localhost:3000/users?select=id,email,role,first_name,last_name,phone&order=id.asc');
   }
 
   saveProduct(product) {
@@ -116,6 +124,22 @@ export class DataService {
 
   shipOrder(order) {
     return this.http.patch('http://localhost:3000/orders?id=eq.' + order.id, {status: 'shipped'});
+  }
+
+  saveUser(user) {
+    const userClone = clone(user);
+    if (user.id) {
+      if (user.password === "") {
+        delete user.password;
+      }
+      return this.http.patch('http://localhost:3000/users?id=eq.' + user.id, user);
+    }
+    delete userClone.id;
+    return this.http.post('http://localhost:3000/users', userClone);
+  }
+
+  deleteUser(user) {
+    return this.http.delete('http://localhost:3000/users?id=eq.' + user.id);
   }
 
 }

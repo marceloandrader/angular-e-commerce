@@ -19,6 +19,7 @@ export interface Data {
 
   savedProduct: boolean;
   savedOrder: boolean;
+  savedUser: boolean;
   systemOrders?: Array<order>;
 }
 
@@ -31,4 +32,5 @@ export const defaults: Data = {
 
   savedProduct: false,
   savedOrder: false,
+  savedUser: false,
 };

@@ -4,6 +4,7 @@ import {card} from '../models/card';
 import {cart} from '../models/cart';
 import {product} from "../models/product";
 import {order} from "../models/order";
+import {user} from "../models/user";
 
 export const ActionTypes = {
   SERVER_FAIL: type('[Data] Server Failure'),
@@ -40,6 +41,10 @@ export const ActionTypes = {
   DELETE_ORDER_SUCCESS: type('[Data] Delete order Success'),
   SHIP_ORDER: type('[Data] Ship an order'),
   SHIP_ORDER_SUCCESS: type('[Data] Ship order Success'),
+  SAVE_USER: type('[Data] Save a user'),
+  SAVE_USER_SUCCESS: type('[Data] Save user Success'),
+  DELETE_USER: type('[Data] Delete a user'),
+  DELETE_USER_SUCCESS: type('[Data] Delete user Success'),
 };
 
 export class ServerFailAction implements Action {
@@ -238,6 +243,28 @@ export class ShipOrderSuccessAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class SaveUserAction implements Action {
+  readonly type = ActionTypes.SAVE_USER;
+
+  constructor(public payload: user) { }
+}
+export class SaveUserSuccessAction implements Action {
+  readonly type = ActionTypes.SAVE_USER_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
+export class DeleteUserAction implements Action {
+  readonly type = ActionTypes.DELETE_USER;
+
+  constructor(public payload: user) { }
+}
+export class DeleteUserSuccessAction implements Action {
+  readonly type = ActionTypes.DELETE_USER_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
 export type Actions
   = ServerFailAction
   | LoadProductsAction
@@ -272,4 +299,8 @@ export type Actions
   | DeleteOrderAction
   | DeleteOrderSuccessAction
   | ShipOrderAction
-  | ShipOrderSuccessAction;
+  | ShipOrderSuccessAction
+  | SaveUserAction
+  | SaveUserSuccessAction
+  | DeleteUserAction
+  | DeleteUserSuccessAction;

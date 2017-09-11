@@ -177,7 +177,8 @@ create or replace function
 CREATE TYPE jwt_token AS (
    token text,
    role text,
-   email text
+   email text,
+   id integer
  );
 
 create or replace function
@@ -186,6 +187,7 @@ login(email text, pass text) returns jwt_token
   as $$
 declare
   _role name;
+  user_id integer;
   result jwt_token;
 begin
   -- check email and password
@@ -194,11 +196,13 @@ begin
     raise invalid_password using message = 'invalid user or password';
   end if;
 
+  select id into user_id from users where users.email = login.email;
+
   select sign(
       row_to_json(r), 'this-is-a-hardcoded-secret'
-    ) as token, r.role, r.email
+    ) as token, r.role, r.email, r.id
     from (
-      select 'api_' || _role as role, login.email as email,
+      select 'api_' || _role as role, login.email as email, user_id as id,
          extract(epoch from now())::integer + 60*60 as exp
     ) r
     into result;

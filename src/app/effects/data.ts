@@ -67,7 +67,7 @@ export class DataEffects {
     .debounceTime(300)
     .map((action: data.SignupSuccessAction) => action.payload)
     .switchMap(payload => this.dataService.login({email: payload.email, pass: payload.pass})
-      .map(res => new data.LoginSuccessAction(payload))
+      .map(res => new data.LoginSuccessAction(res))
       .catch(err => of(new data.ServerFailAction(err)))
     );
 
@@ -85,7 +85,7 @@ export class DataEffects {
   loadOrders$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOAD_ORDERS)
     .debounceTime(300)
     .map((action: data.LoadOrdersAction) => action.payload)
-    .switchMap(payload => this.dataService.loadOrders()
+    .switchMap(payload => this.dataService.loadOrders(payload)
           .map(res => new data.LoadOrdersSuccessAction(res))
           .catch(err => of(new data.ServerFailAction(err)))
     );
@@ -155,6 +155,24 @@ export class DataEffects {
       .catch(err => of(new data.ServerFailAction(err)))
     );
 
+
+  @Effect()
+  saveUser$: Observable<Action> = this.actions$.ofType(data.ActionTypes.SAVE_USER)
+    .debounceTime(300)
+    .map((action: data.SaveUserAction) => action.payload)
+    .switchMap(payload => this.dataService.saveUser(payload)
+      .map(res => new data.SaveUserSuccessAction(res))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
+
+  @Effect()
+  deleteUser$: Observable<Action> = this.actions$.ofType(data.ActionTypes.DELETE_USER)
+    .debounceTime(300)
+    .map((action: data.DeleteUserAction) => action.payload)
+    .switchMap(payload => this.dataService.deleteUser(payload)
+      .map(res => new data.DeleteUserSuccessAction(res))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
 
   @Effect({dispatch: false})
   addFail$: Observable<Action> = this.actions$.ofType(data.ActionTypes.SERVER_FAIL)
