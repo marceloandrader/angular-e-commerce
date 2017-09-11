@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import * as fromRoot from '../reducers';
 import * as data from '../actions/data';
@@ -36,15 +36,18 @@ import {StateService} from "@uirouter/angular/lib";
   `,
   styles: []
 })
-export class ToolbarComponent implements OnInit {
+export class ToolbarComponent implements OnInit, OnDestroy {
 
   public loggedIn: boolean;
   public isAdmin: boolean;
+  private alive: boolean = true;
   public name: string;
   private waiting: boolean = true;
 
   constructor(private store: Store<fromRoot.State>, private state: StateService, private toasterService: ToasterService) {
-    this.store.select(fromRoot.getCurrentUser).subscribe((user) => {
+    this.store.select(fromRoot.getCurrentUser)
+      .takeWhile(() => this.alive)
+      .subscribe((user) => {
       this.loggedIn = !isUndefined(user);
       if (this.loggedIn) {
         this.name = user.email;
@@ -56,10 +59,15 @@ export class ToolbarComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnDestroy () {
+    this.alive = false;
+  }
+
   logout() {
     this.store.dispatch(new data.LogoutAction({}));
     this.waiting = true;
     this.store.select(fromRoot.getCurrentUser)
+      .takeWhile(() => this.alive)
       .takeWhile(() => this.waiting)
       .subscribe((newUser) => {
         if (!newUser) {
