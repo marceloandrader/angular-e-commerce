@@ -18,6 +18,8 @@ export interface Data {
   currentUser?: currentUser;
 
   savedProduct: boolean;
+  savedOrder: boolean;
+  systemOrders?: Array<order>;
 }
 
 export const defaults: Data = {
@@ -28,4 +30,5 @@ export const defaults: Data = {
   users: [],
 
   savedProduct: false,
+  savedOrder: false,
 };

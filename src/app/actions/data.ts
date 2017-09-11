@@ -3,6 +3,7 @@ import { type } from '../util';
 import {card} from '../models/card';
 import {cart} from '../models/cart';
 import {product} from "../models/product";
+import {order} from "../models/order";
 
 export const ActionTypes = {
   SERVER_FAIL: type('[Data] Server Failure'),
@@ -25,7 +26,6 @@ export const ActionTypes = {
   SIGNUP_SUCCESS: type('[Data] Signup succeeded'),
   LOAD_ORDERS: type('[Data] Load orders'),
   LOAD_ORDERS_SUCCESS: type('[Data] Load orders Success'),
-  LOAD_CATEGORIES: type('[Data] Load categories'),
   LOAD_CATEGORIES_SUCCESS: type('[Data] Load categories Success'),
   LOAD_USERS: type('[Data] Load users'),
   LOAD_USERS_SUCCESS: type('[Data] Load users Success'),
@@ -33,6 +33,11 @@ export const ActionTypes = {
   SAVE_PRODUCT_SUCCESS: type('[Data] Save product Success'),
   DELETE_PRODUCT: type('[Data] Delete a product'),
   DELETE_PRODUCT_SUCCESS: type('[Data] Delete product Success'),
+  LOAD_CATEGORIES: type('[Data] Load categories'),
+  LOAD_SYSTEM_ORDERS: type('[Data] Load system orders'),
+  LOAD_SYSTEM_ORDERS_SUCCESS: type('[Data] Load system orders Success'),
+  DELETE_ORDER: type('[Data] Delete an order'),
+  DELETE_ORDER_SUCCESS: type('[Data] Delete order Success'),
 };
 
 export class ServerFailAction implements Action {
@@ -198,6 +203,28 @@ export class DeleteProductSuccessAction implements Action {
   constructor(public payload: any) { }
 }
 
+export class LoadSystemOrdersAction implements Action {
+  readonly type = ActionTypes.LOAD_SYSTEM_ORDERS;
+
+  constructor(public payload: any) { }
+}
+export class LoadSystemOrdersSuccessAction implements Action {
+  readonly type = ActionTypes.LOAD_SYSTEM_ORDERS_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
+export class DeleteOrderAction implements Action {
+  readonly type = ActionTypes.DELETE_ORDER;
+
+  constructor(public payload: order) { }
+}
+export class DeleteOrderSuccessAction implements Action {
+  readonly type = ActionTypes.DELETE_ORDER_SUCCESS;
+
+  constructor(public payload: any) { }
+}
+
 export type Actions
   = ServerFailAction
   | LoadProductsAction
@@ -226,4 +253,8 @@ export type Actions
   | SaveProductAction
   | SaveProductSuccessAction
   | DeleteProductAction
-  | DeleteProductSuccessAction;
+  | DeleteProductSuccessAction
+  | LoadSystemOrdersAction
+  | LoadSystemOrdersSuccessAction
+  | DeleteOrderAction
+  | DeleteOrderSuccessAction;

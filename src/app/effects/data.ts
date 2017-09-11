@@ -127,6 +127,25 @@ export class DataEffects {
     );
 
 
+  @Effect()
+  loadSystemOrders$: Observable<Action> = this.actions$.ofType(data.ActionTypes.LOAD_SYSTEM_ORDERS)
+    .debounceTime(300)
+    .map((action: data.LoadSystemOrdersAction) => action.payload)
+    .switchMap(payload => this.dataService.loadSystemOrders()
+      .map(res => new data.LoadSystemOrdersSuccessAction(res))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
+
+
+  @Effect()
+  deleteOrder$: Observable<Action> = this.actions$.ofType(data.ActionTypes.DELETE_ORDER)
+    .debounceTime(300)
+    .map((action: data.DeleteOrderAction) => action.payload)
+    .switchMap(payload => this.dataService.deleteOrder(payload)
+      .map(res => new data.DeleteOrderSuccessAction(res))
+      .catch(err => of(new data.ServerFailAction(err)))
+    );
+
   @Effect({dispatch: false})
   addFail$: Observable<Action> = this.actions$.ofType(data.ActionTypes.SERVER_FAIL)
     .debounceTime(300)

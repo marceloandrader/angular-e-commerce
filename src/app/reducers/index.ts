@@ -59,6 +59,12 @@ export const getCategories = createSelector(getDataState, fromData.getCategories
 
 export const isSavedProduct = createSelector(getDataState, fromData.isSavedProduct);
 
+export const getSystemOrders = createSelector(getDataState, fromData.getSystemOrders);
+
+export const isSavedOrder = createSelector(getDataState, fromData.isSavedOrder);
+
+
+
 /* Data */
 
 export const getUiState = (state: State) => state.ui;

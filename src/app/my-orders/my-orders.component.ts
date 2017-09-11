@@ -6,6 +6,7 @@ import { order } from "../models/order";
 @Component({
   selector: 'app-my-orders',
   template: `
+    <h2>Your Past Orders</h2>
     <div class="row pt-3" *ngFor="let order of orders">
       <div class="card" style="width:100%">
           <div class="card-block">

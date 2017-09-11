@@ -4,6 +4,7 @@ import { AdminProductsComponent } from './admin-products/admin-products.componen
 import { AdminComponent } from './admin.component';
 import { AdminCategoriesComponent } from "./admin-categories/admin-categories.component";
 import { AdminUsersComponent } from "./admin-users/admin-users.component";
+import { AdminOrdersComponent } from "./admin-orders/admin-orders.component";
 
 export function loadProducts(transition) {
   let dataSvc = transition.injector().get(DataService);
@@ -21,6 +22,12 @@ export function loadUsers(transition) {
   let dataSvc = transition.injector().get(DataService);
 
   dataSvc.dispatchLoadUsers({});
+}
+
+export function loadSystemOrders(transition) {
+  let dataSvc = transition.injector().get(DataService);
+
+  dataSvc.dispatchLoadSystemOrders({});
 }
 
 export let ADMIN_STATES: Ng2StateDeclaration[] = [
@@ -46,5 +53,11 @@ export let ADMIN_STATES: Ng2StateDeclaration[] = [
     url: '/admin/users',
     component: AdminUsersComponent,
     onEnter: loadUsers
+  },
+  {
+    name: 'admin-orders',
+    url: '/admin/orders',
+    component: AdminOrdersComponent,
+    onEnter: loadSystemOrders
   }
 ];

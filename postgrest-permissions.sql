@@ -32,11 +32,12 @@ grant SELECT, INSERT on table public.orders, public.order_details to api_user;
 grant USAGE on sequence public.orders_id_seq, public.order_details_id_seq to api_user;
 
 -- API MANAGER
-grant SELECT on table public.categories, public.products, public.users to api_manager;
+grant SELECT on table public.categories, public.products, public.users, public.orders, public.order_details to api_manager;
 grant update, insert on public.products to api_manager;
 grant USAGE on sequence public.products_id_seq to api_manager;
 
 -- API ADMIN
-grant SELECT on table public.categories, public.products, public.users to api_admin;
+grant SELECT on table public.categories, public.products, public.users, public.orders, public.order_details to api_admin;
 grant update, insert, delete on public.products to api_admin;
+grant delete on public.orders, public.order_details to api_admin;
 grant USAGE on sequence public.products_id_seq to api_admin;

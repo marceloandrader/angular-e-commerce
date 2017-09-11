@@ -45,7 +45,7 @@ CREATE TABLE order_details(
   price numeric(10,2) not null,
   unique (order_id, product_id),
   CONSTRAINT order_id FOREIGN KEY (order_id)
-    references orders (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    references orders (id) ON UPDATE CASCADE ON DELETE CASCADE,
   CONSTRAINT product_id FOREIGN KEY (product_id)
     references products (id) ON UPDATE CASCADE ON DELETE RESTRICT
 );

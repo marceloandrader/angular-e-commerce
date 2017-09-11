@@ -64,6 +64,13 @@ export function reducer(state = dataModel.defaults, action: data.Actions): dataM
     case data.ActionTypes.SAVE_PRODUCT_SUCCESS:
     case data.ActionTypes.DELETE_PRODUCT_SUCCESS:
       return merge({}, stateCopy, {savedProduct: true});
+    case data.ActionTypes.LOAD_SYSTEM_ORDERS_SUCCESS:
+      delete stateCopy.systemOrders;
+      return merge({}, stateCopy, {systemOrders: action.payload});
+    case data.ActionTypes.DELETE_ORDER:
+      return merge({}, stateCopy, {savedOrder: false});
+    case data.ActionTypes.DELETE_ORDER_SUCCESS:
+      return merge({}, stateCopy, {savedOrder: true});
     default:
       return state;
   }
@@ -78,3 +85,5 @@ export const getOrders = (state: dataModel.Data) => state.orders;
 export const getUsers = (state: dataModel.Data) => state.users;
 export const getCategories = (state: dataModel.Data) => state.categories;
 export const isSavedProduct = (state: dataModel.Data) => state.savedProduct;
+export const getSystemOrders = (state: dataModel.Data) => state.systemOrders;
+export const isSavedOrder = (state: dataModel.Data) => state.savedOrder;

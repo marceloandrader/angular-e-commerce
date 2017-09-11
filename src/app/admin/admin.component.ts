@@ -11,7 +11,7 @@ import * as fromRoot from '../reducers';
     <a class="list-group-item list-group-item-action" uiSref="admin-products" *ngIf="isAdmin || isManager">Products</a>
     <a class="list-group-item list-group-item-action" uiSref="admin-users" *ngIf="isAdmin">Users</a>
     
-    <a class="list-group-item list-group-item-action" uiSref="admin-users" *ngIf="isAdmin || isManager">Orders</a>
+    <a class="list-group-item list-group-item-action" uiSref="admin-orders" *ngIf="isAdmin || isManager">Orders</a>
   </a>
   `,
   styles: []

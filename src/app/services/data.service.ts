@@ -101,4 +101,17 @@ export class DataService {
   deleteProduct(product) {
     return this.http.delete('http://localhost:3000/products?id=eq.' + product.id);
   }
+
+  dispatchLoadSystemOrders() {
+    this.store.dispatch(new data.LoadSystemOrdersAction({}));
+  }
+
+  loadSystemOrders() {
+    return this.http.get('http://localhost:3000/orders?select=*,order_details(*, products(*)),users(id, first_name, last_name, email)&order=id.desc');
+  }
+
+  deleteOrder(order) {
+    return this.http.delete('http://localhost:3000/orders?id=eq.' + order.id);
+  }
+
 }

@@ -7,9 +7,10 @@ import { AdminComponent } from "./admin.component";
 import { AdminProductsComponent } from "./admin-products/admin-products.component";
 import { AdminUsersComponent } from "./admin-users/admin-users.component";
 import { AdminCategoriesComponent } from "./admin-categories/admin-categories.component";
+import { AdminOrdersComponent } from "./admin-orders/admin-orders.component";
 
 const ADMIN_COMPONENTS =  [
-  AdminProductsComponent, AdminComponent, AdminUsersComponent, AdminCategoriesComponent
+  AdminProductsComponent, AdminComponent, AdminUsersComponent, AdminCategoriesComponent, AdminOrdersComponent
 ];
 
 @NgModule({
